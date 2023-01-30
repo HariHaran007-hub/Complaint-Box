@@ -18,11 +18,9 @@ class UserActivity : AppCompatActivity() {
 
     private lateinit var viewModel: UserViewModel
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user)
-
 
         viewModel = ViewModelProvider(this, factory)[UserViewModel::class.java]
     }
