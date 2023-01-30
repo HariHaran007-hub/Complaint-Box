@@ -6,7 +6,12 @@
         <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/layout/activity_main.xml" value="0.3333333333333333" />
         <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/layout/activity_staff.xml" value="0.31666666666666665" />
         <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/layout/activity_user.xml" value="0.31666666666666665" />
+        <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/layout/fragment_staff1.xml" value="0.3333333333333333" />
         <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/layout/fragment_staff2.xml" value="0.3333333333333333" />
+        <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/layout/fragment_user1.xml" value="0.3333333333333333" />
+        <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/layout/fragment_user2.xml" value="0.3333333333333333" />
+        <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/layout/fragment_user3.xml" value="0.3333333333333333" />
+        <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/menu/user_bottom_nav.xml" value="0.33229166666666665" />
       </map>
     </option>
   </component>
@@ -15,5 +20,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.31666666666666665" />
+      </ProjectState>
+    </option>
   </component>
 </project>

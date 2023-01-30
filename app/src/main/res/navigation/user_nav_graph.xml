@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/user_nav_graph"
+    app:startDestination="@id/userFragment1">
+
+    <fragment
+        android:id="@+id/userFragment1"
+        android:name="com.rcappstudio.complaintbox.ui.user.fragments.UserFragment1"
+        android:label="fragment_user1"
+        tools:layout="@layout/fragment_user1" />
+    <fragment
+        android:id="@+id/userFragment2"
+        android:name="com.rcappstudio.complaintbox.ui.user.fragments.UserFragment2"
+        android:label="fragment_user2"
+        tools:layout="@layout/fragment_user2" />
+    <fragment
+        android:id="@+id/userFragment3"
+        android:name="com.rcappstudio.complaintbox.ui.user.fragments.UserFragment3"
+        android:label="fragment_user3"
+        tools:layout="@layout/fragment_user3" />
+</navigation>

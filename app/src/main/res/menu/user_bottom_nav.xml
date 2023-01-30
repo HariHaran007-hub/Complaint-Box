@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/all"
+        android:icon="@drawable/ic_all"
+        android:title="All complaints"
+        />
+
+    <item
+        android:id="@+id/pending"
+        android:icon="@drawable/ic_pending"
+        android:title="Pending Complaints"
+        />
+
+    <item
+        android:id="@+id/completed"
+        android:icon="@drawable/ic_completed"
+        android:title="Completed"
+        />
+
+
+
+</menu>
