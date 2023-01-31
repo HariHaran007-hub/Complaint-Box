@@ -50,6 +50,7 @@ class ViewFragment : Fragment() {
         val comp = Gson().fromJson(args.complaint,Complaint::class.java)
         val departmentList = comp.department!!.split(",")
         val isStaff = sharedPref.getBoolean("isStaff", false)
+        val isAdmin = sharedPref.getBoolean("isAdmin", false)
         val department = sharedPref.getString("department", "")
 
         Log.d("TAGData", "onViewCreated: ${comp.complaintId}")
@@ -81,6 +82,25 @@ class ViewFragment : Fragment() {
         binding.solved.visibility = View.GONE
         binding.tvViewComplaintNote.setText(comp.note.toString())
 
+        if (isAdmin) {
+            binding.approve.visibility = View.VISIBLE
+            binding.tvViewComplaintNote.isEnabled = (comp.solved == 0)
+            binding.solved.visibility = View.VISIBLE
+            binding.addNote.visibility = View.VISIBLE
+
+            binding.approve.setOnClickListener {
+                markSolved(comp.complaintId.toString())
+            }
+
+            binding.addNote.setOnClickListener {
+                if (binding.tvViewComplaintNote.text.toString() != "")
+                    addNote(
+                        binding.tvViewComplaintNote.text.toString(),
+                        comp.complaintId.toString()
+                    )
+            }
+        }
+
         if (isStaff && department != "" && departmentList.contains(
                 department.toString().trim()
             ) && comp.solved!! == 0
@@ -90,7 +110,7 @@ class ViewFragment : Fragment() {
             binding.addNote.visibility = View.VISIBLE
 
             binding.solved.setOnClickListener {
-                markSolved(comp.complaintId.toString())
+                markAssigned(comp.complaintId.toString())
             }
 
             binding.addNote.setOnClickListener {
@@ -103,9 +123,9 @@ class ViewFragment : Fragment() {
         }
     }
 
-    private fun markSolved(complaintId: String) {
+    private fun markAssigned(complaintId: String) {
         FirebaseDatabase.getInstance().getReference("Complaints/$complaintId/solved")
-            .setValue(true).addOnCompleteListener {
+            .setValue(1).addOnCompleteListener {
                 requireActivity().onBackPressed()
             }
     }
@@ -113,5 +133,12 @@ class ViewFragment : Fragment() {
     private fun addNote(note: String, complaintId: String) {
         FirebaseDatabase.getInstance().getReference("Complaints/$complaintId/note")
             .setValue(note)
+    }
+
+    private fun markSolved(complaintId: String) {
+        FirebaseDatabase.getInstance().getReference("Complaints/$complaintId/solved")
+            .setValue(2).addOnCompleteListener {
+                requireActivity().onBackPressed()
+            }
     }
 }

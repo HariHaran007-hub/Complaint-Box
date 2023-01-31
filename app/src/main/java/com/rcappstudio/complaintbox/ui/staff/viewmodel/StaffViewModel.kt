@@ -1,7 +1,6 @@
 package com.rcappstudio.complaintbox.ui.staff.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.database.DataSnapshot
@@ -13,7 +12,7 @@ import com.rcappstudio.complaintbox.model.Complaint
 class StaffViewModel(
     private val app: Application,
     private val database: FirebaseDatabase
-) : AndroidViewModel(app){
+) : AndroidViewModel(app) {
 
     private var compList: MutableLiveData<List<Complaint?>> = MutableLiveData()
 

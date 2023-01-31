@@ -9,13 +9,13 @@
 
     <item
         android:id="@+id/pending"
-        android:icon="@drawable/ic_pending"
-        android:title="Pending"
+        android:icon="@drawable/ic_assigned"
+        android:title="Assigned"
         />
 
     <item
         android:id="@+id/completed"
-        android:icon="@drawable/ic_completed"
+        android:icon="@drawable/ic_solved"
         android:title="Solved"
         />
 

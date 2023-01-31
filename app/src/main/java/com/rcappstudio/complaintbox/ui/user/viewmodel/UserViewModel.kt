@@ -3,17 +3,17 @@ package com.rcappstudio.complaintbox.ui.user.viewmodel
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
-import androidx.navigation.fragment.NavHostFragment
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.rcappstudio.complaintbox.R
 import com.rcappstudio.complaintbox.model.Complaint
+import com.rcappstudio.complaintbox.ui.FirebaseData
 
 class UserViewModel(
     private val app: Application,
@@ -53,7 +53,11 @@ class UserViewModel(
 
     fun getAllData(): LiveData<List<Complaint?>> {
         compList.postValue(mutableListOf())
-        database.getReference("Complaints")
+        FirebaseData.liveData.observeForever {
+            compList.postValue(it)
+        }
+
+        /*database.getReference("Complaints")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val list = mutableListOf<Complaint?>()
@@ -68,12 +72,19 @@ class UserViewModel(
                 override fun onCancelled(error: DatabaseError) {
 //                    TODO("Not yet implemented")
                 }
-            })
+            })*/
         return compList
     }
 
-    fun getPendingData(): LiveData<List<Complaint?>> {
+    fun getAssignedData(): LiveData<List<Complaint?>> {
         compList.postValue(mutableListOf())
+        FirebaseData.liveData.observeForever {
+            compList.postValue(it.filter {
+                it.solved == 1
+            })
+        }
+
+/*
         database.getReference("Complaints")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -92,12 +103,18 @@ class UserViewModel(
 //                    TODO("Not yet implemented")
                 }
             })
+*/
         return compList
     }
 
     fun getSolvedData(): LiveData<List<Complaint?>> {
         compList.postValue(mutableListOf())
-        database.getReference("Complaints")
+        FirebaseData.liveData.observeForever {
+            compList.postValue(it.filter {
+                it.solved == 2
+            })
+        }
+        /*database.getReference("Complaints")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val list = mutableListOf<Complaint?>()
@@ -114,7 +131,7 @@ class UserViewModel(
                 override fun onCancelled(error: DatabaseError) {
 //                    TODO("Not yet implemented")
                 }
-            })
+            })*/
         return compList
     }
 

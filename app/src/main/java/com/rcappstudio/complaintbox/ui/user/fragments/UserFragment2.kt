@@ -42,7 +42,7 @@ class UserFragment2 : Fragment(), CompRVAdapter.CardClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getPendingData().observe(viewLifecycleOwner) {
+        viewModel.getAssignedData().observe(viewLifecycleOwner) {
             rvAdapter = CompRVAdapter(requireContext(),it,this)
             binding.userFrag2RV.adapter = rvAdapter
         }
