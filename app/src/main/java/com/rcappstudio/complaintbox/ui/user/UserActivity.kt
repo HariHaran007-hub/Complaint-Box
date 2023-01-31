@@ -31,6 +31,8 @@ class UserActivity : AppCompatActivity() {
         binding = ActivityUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewModel = ViewModelProvider(this, factory)[UserViewModel::class.java]
+        viewModel.setNavController(getNavController())
+
         initBottomNavigation()
     }
 
@@ -39,13 +41,13 @@ class UserActivity : AppCompatActivity() {
             when(it.itemId){
 
                 R.id.all->{
-                    switchToFragment(R.id.userFragment1)
+                    viewModel.switchToFragment(R.id.userFragment1)
                 }
                 R.id.pending->{
-                    switchToFragment(R.id.userFragment2)
+                    viewModel.switchToFragment(R.id.userFragment2)
                 }
                 R.id.completed->{
-                    switchToFragment(R.id.userFragment3)
+                    viewModel.switchToFragment(R.id.userFragment3)
                 }
             }
             true
@@ -57,21 +59,6 @@ class UserActivity : AppCompatActivity() {
         return (supportFragmentManager.findFragmentById(R.id.userFragmentContainerView) as NavHostFragment).navController
     }
 
-    private fun switchToFragment(destinationId: Int) {
-        if (isFragmentInBackStack(destinationId)) {
-            getNavController().popBackStack(destinationId, false)
-        } else {
-            getNavController().navigate(destinationId)
-        }
-    }
-
-    private fun isFragmentInBackStack(destinationId: Int) =
-        try {
-            getNavController().getBackStackEntry(destinationId)
-            true
-        } catch (e: Exception) {
-            false
-        }
 
     override fun onBackPressed() {
         super.onBackPressed()
