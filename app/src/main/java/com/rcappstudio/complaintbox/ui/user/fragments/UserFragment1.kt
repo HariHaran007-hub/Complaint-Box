@@ -33,8 +33,6 @@ class UserFragment1 : Fragment(),CompRVAdapter.CardClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this, factory)[UserViewModel::class.java]
-        viewModel.setNavController(getNavController())
         viewModel.getAllData().observe(viewLifecycleOwner) {
             rvAdapter = CompRVAdapter(requireContext(),it,this)
             binding.userFrag1RV.adapter = rvAdapter
@@ -49,6 +47,8 @@ class UserFragment1 : Fragment(),CompRVAdapter.CardClickListener {
         // Inflate the layout for this fragment
         binding = FragmentUser1Binding.inflate(layoutInflater,container,false)
         binding.userFrag1RV.layoutManager = LinearLayoutManager(requireContext())
+        viewModel = ViewModelProvider(this, factory)[UserViewModel::class.java]
+        viewModel.setNavController(getNavController())
         return binding.root
     }
 
