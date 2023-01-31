@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.forEach
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -30,6 +31,7 @@ import com.rcappstudio.complaintbox.R
 import com.rcappstudio.complaintbox.databinding.FragmentAddComplaintBinding
 import com.rcappstudio.complaintbox.model.Complaint
 import com.rcappstudio.complaintbox.utils.dismissDialog
+import com.rcappstudio.complaintbox.utils.initLoadingDialog
 import com.rcappstudio.complaintbox.utils.showDialog
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.ByteArrayOutputStream
@@ -42,7 +44,7 @@ import javax.inject.Inject
 class AddComplaintFragment : Fragment() {
 
     private lateinit var binding : FragmentAddComplaintBinding
-    private lateinit var uriList: MutableList<Uri>
+    private var uriList: MutableList<Uri> = mutableListOf()
     private val imageUrlList = mutableListOf<String>()
 
     private val imageViewRvAdapter by lazy {
@@ -52,7 +54,6 @@ class AddComplaintFragment : Fragment() {
     private var department = ""
     private var videoUri: Uri? = null
     private var videoUrl = ""
-
 
     @Inject
     lateinit var database: FirebaseDatabase
@@ -89,6 +90,9 @@ class AddComplaintFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         clickListener()
+        extractChipData()
+        initLoadingDialog(requireActivity())
+        initImageViewRecyclerView()
     }
 
     private fun clickListener(){
@@ -153,6 +157,14 @@ class AddComplaintFragment : Fragment() {
             Toast.makeText(requireContext(), "Fill all the fields!", Toast.LENGTH_SHORT)
                 .show()
         }
+    }
+
+
+    private fun initImageViewRecyclerView() {
+        uriList = mutableListOf()
+        binding.rvComplaint.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.rvComplaint.adapter = imageViewRvAdapter
     }
 
     private fun extractChipData() {
@@ -253,7 +265,6 @@ class AddComplaintFragment : Fragment() {
                     dismissDialog()
                     requireActivity().onBackPressed()
 //                    getNotificationToken()
-//                    clearBottomSheet()
                 }
             }
     }

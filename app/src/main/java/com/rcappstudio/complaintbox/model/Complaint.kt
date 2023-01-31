@@ -12,6 +12,6 @@ data class Complaint
      val userId: String ?= null,
      val complaintId: String ?= null,
      val note: String ?= "Problem will be sort out soon",
-     val solved: Boolean ?= false,
+     val solved: Int ?= 0,
      val imageUrlList: List<String> ?= null
      )
