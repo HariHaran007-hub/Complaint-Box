@@ -24,8 +24,9 @@ class UserActivity : AppCompatActivity() {
 
     private lateinit var viewModel: UserViewModel
 
-    private lateinit var binding: ActivityUserBinding
-
+    companion object {
+        lateinit var binding: ActivityUserBinding
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUserBinding.inflate(layoutInflater)

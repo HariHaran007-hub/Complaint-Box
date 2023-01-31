@@ -10,6 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.rcappstudio.complaintbox.R
 import com.rcappstudio.complaintbox.databinding.FragmentUser1Binding
+import com.rcappstudio.complaintbox.ui.user.UserActivity
 import com.rcappstudio.complaintbox.ui.user.viewmodel.UserViewModel
 import com.rcappstudio.complaintbox.ui.user.viewmodel.UserViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
