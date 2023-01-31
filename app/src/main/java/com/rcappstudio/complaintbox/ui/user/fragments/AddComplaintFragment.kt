@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -30,10 +31,17 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.rcappstudio.complaintbox.R
 import com.rcappstudio.complaintbox.databinding.FragmentAddComplaintBinding
 import com.rcappstudio.complaintbox.model.Complaint
+import com.rcappstudio.complaintbox.model.LoginData
+import com.rcappstudio.complaintbox.notification.NotificationAPI
+import com.rcappstudio.complaintbox.notification.NotificationData
+import com.rcappstudio.complaintbox.notification.PushNotification
 import com.rcappstudio.complaintbox.utils.dismissDialog
 import com.rcappstudio.complaintbox.utils.initLoadingDialog
 import com.rcappstudio.complaintbox.utils.showDialog
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -57,6 +65,9 @@ class AddComplaintFragment : Fragment() {
 
     @Inject
     lateinit var database: FirebaseDatabase
+
+    @Inject
+    lateinit var notificationAPI: NotificationAPI
 
     private val getImage = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -264,10 +275,53 @@ class AddComplaintFragment : Fragment() {
                 if (it.isSuccessful) {
                     dismissDialog()
                     requireActivity().onBackPressed()
-//                    getNotificationToken()
+                    getNotificationToken()
                 }
             }
     }
+
+    private fun getNotificationToken(){
+        for (dep in department.split(",")) {
+            FirebaseDatabase.getInstance().getReference("Staff/$dep/admin")
+                .get().addOnSuccessListener {
+                    for (children in it.children) {
+                        val userData = children.getValue(LoginData::class.java)
+                        Log.d("TAGData", "getNotificationToken: ${userData!!.token}")
+                        if (userData!!.token != null && userData.token != "")
+                            setNotificationToken(userData.token!!)
+                    }
+                }
+        }
+    }
+
+    private fun setNotificationToken(token: String) {
+        PushNotification(
+            NotificationData("Got an problem", "Some one has posted an problem click to view."),
+            token
+        ).also {
+            sendNotification(it)
+        }
+    }
+
+    private fun sendNotification(notification: PushNotification) =
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = notificationAPI.postNotification(notification)
+                if (response.isSuccessful) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Notification has been sent successfully",
+                        Toast.LENGTH_LONG
+                    ).show()
+
+                } else {
+                    Toast.makeText(requireContext(), "Error occured", Toast.LENGTH_LONG).show()
+
+                }
+            } catch (e: Exception) {
+                Log.e("TAGData", e.toString())
+            }
+        }
 
     private fun getImageUri(inImage: Bitmap): Uri {
         val tempFile = File.createTempFile("temprentpk", ".png")
