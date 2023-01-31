@@ -15,10 +15,22 @@
         android:theme="@style/Theme.ComplaintBox"
         tools:targetApi="31">
         <activity
-            android:name=".ui.staff.StaffActivity"
+            android:name=".ui.SplashActivity"
             android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.LoginActivity"
+            android:exported="true">
 
         </activity>
+        <activity
+            android:name=".ui.staff.StaffActivity"
+            android:exported="true" />
         <activity
             android:name=".ui.user.UserActivity"
             android:exported="true">
@@ -30,7 +42,21 @@
         </activity>
         <activity
             android:name=".ui.MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
+
+        <service
+            android:name=".notification.FirebaseService"
+            android:exported="false"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="android.intent.action.RECEIVE" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>
