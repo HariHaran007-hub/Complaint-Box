@@ -27,7 +27,7 @@ class StaffViewModel(
                         for (c in snapshot.children) {
 //                            Log.d("TAGinController", "onDataChange: ${c.key}")
                             val comp = c.getValue(Complaint::class.java)
-                            if (!comp?.solved!!) list.add(comp)
+                            if (comp?.solved!! == 1) list.add(comp)
                         }
                         compList.postValue(list)
                     }
