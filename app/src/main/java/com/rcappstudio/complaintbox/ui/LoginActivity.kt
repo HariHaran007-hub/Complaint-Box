@@ -1,22 +1,26 @@
 package com.rcappstudio.complaintbox.ui
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import com.rcappstudio.complaintbox.R
 import com.rcappstudio.complaintbox.databinding.ActivityLoginBinding
 import com.rcappstudio.complaintbox.model.AdminKey
 import com.rcappstudio.complaintbox.model.KeyData
 import com.rcappstudio.complaintbox.ui.admin.AdminActivity
 import com.rcappstudio.complaintbox.ui.user.UserActivity
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.qualifiers.ActivityContext
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
@@ -159,6 +163,25 @@ class LoginActivity : AppCompatActivity() {
                     .show()
                 FirebaseAuth.getInstance().signOut()
             }
+    }
+
+    private fun showAlertDialog(){
+        val alert: AlertDialog.Builder = AlertDialog.Builder(this)
+        val edittext = EditText(this)
+        alert.setMessage("Enter Your Message")
+        alert.setTitle("Enter Your Title")
+
+        alert.setView(edittext)
+
+        alert.setPositiveButton("Yes Option") { dialog, whichButton ->
+            val YouEditTextValue = edittext.text.toString()
+        }
+
+        alert.setNegativeButton("No Option") { dialog, whichButton ->
+            // what ever you want to do with No option.
+        }
+
+        alert.show()
     }
 
     private fun joinNow(){
