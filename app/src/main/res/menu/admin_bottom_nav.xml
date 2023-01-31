@@ -2,26 +2,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/pending"
+        android:id="@+id/admin_pending"
         android:icon="@drawable/ic_all"
         android:title="Pending"
         />
 
     <item
-        android:id="@+id/assigned"
+        android:id="@+id/admin_assigned"
         android:icon="@drawable/ic_assigned"
         android:title="Assigned"
         />
 
     <item
-        android:id="@+id/solved"
+        android:id="@+id/admin_solved"
         android:icon="@drawable/ic_solved"
         android:title="Solved"
         />
 
     <item
-        android:id="@+id/approved"
-        android:icon="@drawable/ic_solved"
+        android:id="@+id/admin_approved"
+        android:icon="@drawable/baseline_verified_24"
         android:title="Approved"
         />
 

@@ -1,21 +1,16 @@
 package com.rcappstudio.complaintbox.ui.user
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.google.android.material.navigation.NavigationBarView
 import com.rcappstudio.complaintbox.R
 import com.rcappstudio.complaintbox.databinding.ActivityUserBinding
-import com.rcappstudio.complaintbox.ui.FirebaseData
 import com.rcappstudio.complaintbox.ui.user.viewmodel.UserViewModel
 import com.rcappstudio.complaintbox.ui.user.viewmodel.UserViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-
 
 @AndroidEntryPoint
 class UserActivity : AppCompatActivity() {
@@ -25,12 +20,7 @@ class UserActivity : AppCompatActivity() {
 
     private lateinit var viewModel: UserViewModel
 
-    @Inject
-    lateinit var firebaseData : FirebaseData
-
-    companion object {
-        lateinit var binding: ActivityUserBinding
-    }
+    lateinit var binding: ActivityUserBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUserBinding.inflate(layoutInflater)
@@ -41,16 +31,16 @@ class UserActivity : AppCompatActivity() {
         initBottomNavigation()
     }
 
-    private fun initBottomNavigation(){
+    private fun initBottomNavigation() {
         binding.userBottomNavigationView.setOnItemSelectedListener {
-            when(it.itemId){
-                R.id.all->{
+            when (it.itemId) {
+                R.id.user_all -> {
                     viewModel.switchToFragment(R.id.userFragment1)
                 }
-                R.id.pending->{
+                R.id.user_pending -> {
                     viewModel.switchToFragment(R.id.userFragment2)
                 }
-                R.id.completed->{
+                R.id.user_solved -> {
                     viewModel.switchToFragment(R.id.userFragment3)
                 }
             }
@@ -66,6 +56,6 @@ class UserActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        binding.userBottomNavigationView.selectedItemId = R.id.all
+        binding.userBottomNavigationView.selectedItemId = R.id.user_all
     }
 }

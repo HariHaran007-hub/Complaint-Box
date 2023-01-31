@@ -79,16 +79,16 @@ class ViewFragment : Fragment() {
         }
         binding.tvViewComplaintDept.text = "Department: ${comp.department}"
         binding.addNote.visibility = View.GONE
-        binding.solved.visibility = View.GONE
+        binding.solvedBt.visibility = View.GONE
         binding.tvViewComplaintNote.setText(comp.note.toString())
 
         if (isAdmin) {
-            binding.approve.visibility = View.VISIBLE
+            binding.approveBt.visibility = View.VISIBLE
             binding.tvViewComplaintNote.isEnabled = (comp.solved == 0)
-            binding.solved.visibility = View.VISIBLE
+            binding.solvedBt.visibility = View.VISIBLE
             binding.addNote.visibility = View.VISIBLE
 
-            binding.approve.setOnClickListener {
+            binding.approveBt.setOnClickListener {
                 markSolved(comp.complaintId.toString())
             }
 
@@ -106,10 +106,10 @@ class ViewFragment : Fragment() {
             ) && comp.solved!! == 0
         ) {
             binding.tvViewComplaintNote.isEnabled = (comp.solved == 0)
-            binding.solved.visibility = View.VISIBLE
+            binding.solvedBt.visibility = View.VISIBLE
             binding.addNote.visibility = View.VISIBLE
 
-            binding.solved.setOnClickListener {
+            binding.solvedBt.setOnClickListener {
                 markAssigned(comp.complaintId.toString())
             }
 

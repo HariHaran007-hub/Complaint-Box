@@ -2,13 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/pending"
+        android:id="@+id/staff_pending"
         android:icon="@drawable/ic_assigned"
         android:title="Assigned"
         />
 
     <item
-        android:id="@+id/solved"
+        android:id="@+id/staff_solved"
         android:icon="@drawable/ic_solved"
         android:title="Solved"
         />
