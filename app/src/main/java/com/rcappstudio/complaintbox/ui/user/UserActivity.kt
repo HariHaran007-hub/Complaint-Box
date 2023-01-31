@@ -10,6 +10,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.navigation.NavigationBarView
 import com.rcappstudio.complaintbox.R
 import com.rcappstudio.complaintbox.databinding.ActivityUserBinding
+import com.rcappstudio.complaintbox.ui.FirebaseData
 import com.rcappstudio.complaintbox.ui.user.viewmodel.UserViewModel
 import com.rcappstudio.complaintbox.ui.user.viewmodel.UserViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,16 +25,19 @@ class UserActivity : AppCompatActivity() {
 
     private lateinit var viewModel: UserViewModel
 
+    @Inject
+    lateinit var firebaseData : FirebaseData
+
     companion object {
         lateinit var binding: ActivityUserBinding
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUserBinding.inflate(layoutInflater)
+        supportActionBar!!.hide()
         setContentView(binding.root)
         viewModel = ViewModelProvider(this, factory)[UserViewModel::class.java]
         viewModel.setNavController(getNavController())
-
         initBottomNavigation()
     }
 
