@@ -54,6 +54,7 @@
             android:layout_marginBottom="@dimen/_20ssp"
             android:background="@drawable/background_edit_text"
             android:hint="Email"
+
             android:lineHeight="@dimen/_100sdp"
             android:padding="@dimen/_12sdp"
             android:textColor="@color/black"
