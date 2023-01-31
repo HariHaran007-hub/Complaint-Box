@@ -4,24 +4,28 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/drawable-v24/background_edit_text.xml" value="0.218" />
+        <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/drawable-v24/ic_baseline_camera_alt_24.xml" value="0.1" />
+        <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/drawable-v24/ic_baseline_location_on_24.xml" value="0.1" />
         <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/drawable-v24/login_gradient.xml" value="0.218" />
         <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/layout/activity_login.xml" value="0.3333333333333333" />
         <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/layout/activity_main.xml" value="0.3333333333333333" />
         <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/layout/activity_splash.xml" value="0.3333333333333333" />
         <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/layout/activity_staff.xml" value="0.31666666666666665" />
         <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/layout/activity_user.xml" value="0.31666666666666665" />
-        <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/layout/fragment_add_complaint.xml" value="0.3333333333333333" />
+        <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/layout/fragment_add_complaint.xml" value="0.2" />
         <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/layout/fragment_staff1.xml" value="0.3333333333333333" />
         <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/layout/fragment_staff2.xml" value="0.3333333333333333" />
         <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/layout/fragment_user1.xml" value="0.3333333333333333" />
         <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/layout/fragment_user2.xml" value="0.3333333333333333" />
         <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/layout/fragment_user3.xml" value="0.3333333333333333" />
+        <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/layout/fragment_view.xml" value="0.20416666666666666" />
         <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/layout/loading_dialog.xml" value="0.3333333333333333" />
+        <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/layout/rv_image_view.xml" value="0.22083333333333333" />
         <entry key="..\:/Jet pack compose Tutorials/ComplaintBox/app/src/main/res/menu/user_bottom_nav.xml" value="0.33229166666666665" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17_PREVIEW" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

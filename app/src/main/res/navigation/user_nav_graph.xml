@@ -13,17 +13,38 @@
         <action
             android:id="@+id/action_userFragment1_to_addComplaintFragment"
             app:destination="@id/addComplaintFragment" />
+        <action
+            android:id="@+id/action_userFragment1_self"
+            app:destination="@id/userFragment1" />
+        <action
+            android:id="@+id/action_userFragment1_to_viewFragment"
+            app:destination="@id/viewFragment" />
     </fragment>
     <fragment
         android:id="@+id/userFragment2"
         android:name="com.rcappstudio.complaintbox.ui.user.fragments.UserFragment2"
         android:label="fragment_user2"
-        tools:layout="@layout/fragment_user2" />
+        tools:layout="@layout/fragment_user2" >
+        <argument android:name="complaint"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue='""' />
+        <action
+            android:id="@+id/action_userFragment2_to_viewFragment"
+            app:destination="@id/viewFragment" />
+    </fragment>
     <fragment
         android:id="@+id/userFragment3"
         android:name="com.rcappstudio.complaintbox.ui.user.fragments.UserFragment3"
         android:label="fragment_user3"
-        tools:layout="@layout/fragment_user3" />
+        tools:layout="@layout/fragment_user3" >
+        <argument android:name="complaint"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_userFragment3_to_viewFragment"
+            app:destination="@id/viewFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addComplaintFragment"
         android:name="com.rcappstudio.complaintbox.ui.user.fragments.AddComplaintFragment"
@@ -32,5 +53,15 @@
         <action
             android:id="@+id/action_addComplaintFragment_to_userFragment1"
             app:destination="@id/userFragment1" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewFragment"
+        android:name="com.rcappstudio.complaintbox.ui.ViewFragment"
+        android:label="fragment_view"
+        tools:layout="@layout/fragment_view" >
+        <argument android:name="complaint"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue='""' />
     </fragment>
 </navigation>

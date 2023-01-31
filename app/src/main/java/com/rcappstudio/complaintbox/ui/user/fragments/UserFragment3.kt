@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
 import com.rcappstudio.complaintbox.R
 import com.rcappstudio.complaintbox.databinding.FragmentUser3Binding
 import com.rcappstudio.complaintbox.model.Complaint
@@ -51,6 +52,7 @@ class UserFragment3 : Fragment(), CompRVAdapter.CardClickListener {
     }
 
     override fun onCardClick(comp: Complaint) {
-
+        val directions = UserFragment3Directions.actionUserFragment3ToViewFragment(Gson().toJson(comp))
+        viewModel.switchToViewFragment(directions,R.id.viewFragment)
     }
 }

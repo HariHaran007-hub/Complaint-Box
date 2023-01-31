@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -42,6 +43,14 @@ class UserViewModel(
             false
         }
 
+    fun switchToViewFragment(actions: NavDirections, destinationId: Int){
+        if (isFragmentInBackStack(destinationId)) {
+            navController.popBackStack(destinationId, false)
+        } else {
+            navController.navigate(actions)
+        }
+    }
+
     fun getAllData(): LiveData<List<Complaint?>> {
         compList.postValue(mutableListOf())
         database.getReference("Complaints")
@@ -50,7 +59,6 @@ class UserViewModel(
                     val list = mutableListOf<Complaint?>()
                     if (snapshot.exists()) {
                         for (c in snapshot.children) {
-//                            Log.d("TAGinController", "onDataChange: ${c.key}")
                             list.add(c.getValue(Complaint::class.java))
                         }
                         compList.postValue(list)
@@ -109,5 +117,7 @@ class UserViewModel(
             })
         return compList
     }
+
+
 
 }

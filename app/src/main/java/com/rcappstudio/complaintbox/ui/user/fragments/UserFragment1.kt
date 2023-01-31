@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
 import com.rcappstudio.complaintbox.R
 import com.rcappstudio.complaintbox.databinding.FragmentUser1Binding
 import com.rcappstudio.complaintbox.model.Complaint
@@ -57,13 +58,14 @@ class UserFragment1 : Fragment(),CompRVAdapter.CardClickListener {
             viewModel.switchToFragment(R.id.addComplaintFragment)
         }
     }
+
     private fun getNavController(): NavController {
         return (requireActivity().supportFragmentManager.findFragmentById(R.id.userFragmentContainerView) as NavHostFragment).navController
     }
 
     override fun onCardClick(comp: Complaint) {
-
+        val directions = UserFragment1Directions.actionUserFragment1ToViewFragment(Gson().toJson(comp))
+        viewModel.switchToViewFragment(directions, R.id.viewFragment)
     }
-
 
 }
