@@ -37,9 +37,12 @@ class CompRVAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val comp = compList?.get(position)
         holder.titleView.text = comp?.title
-        if (!comp?.solved!!) {
+        if (comp?.solved!! == 0) {
             holder.compStatus.text = "Pending"
             holder.compStatus.setTextColor(context.getColor(R.color.tomato_200))
+        } else if (comp?.solved!! == 1){
+            holder.compStatus.text = "Assigned"
+            holder.compStatus.setTextColor(context.getColor(R.color.yellow_500))
         } else {
             holder.compStatus.text = "Solved"
             holder.compStatus.setTextColor(context.getColor(R.color.lawn_green))
