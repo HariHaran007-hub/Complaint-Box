@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/admin_nav_graph"
+    app:startDestination="@id/adminFragment1">
+
+    <fragment
+        android:id="@+id/adminFragment1"
+        android:name="com.rcappstudio.complaintbox.ui.admin.fragments.AdminFragment1"
+        android:label="fragment_admin1"
+        tools:layout="@layout/fragment_admin1" >
+        <action
+            android:id="@+id/action_adminFragment1_self"
+            app:destination="@id/adminFragment1" />
+        <action
+            android:id="@+id/action_adminFragment1_to_viewFragment"
+            app:destination="@id/viewFragment" />
+        <action
+            android:id="@+id/action_adminFragment1_to_adminFragment4"
+            app:destination="@id/adminFragment4" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminFragment2"
+        android:name="com.rcappstudio.complaintbox.ui.admin.fragments.AdminFragment2"
+        android:label="fragment_admin2"
+        tools:layout="@layout/fragment_admin2" >
+        <argument android:name="complaint"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue='""' />
+        <action
+            android:id="@+id/action_adminFragment2_to_viewFragment"
+            app:destination="@id/viewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminFragment3"
+        android:name="com.rcappstudio.complaintbox.ui.admin.fragments.AdminFragment3"
+        android:label="fragment_admin3"
+        tools:layout="@layout/fragment_admin3" >
+        <argument android:name="complaint"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_adminFragment3_to_viewFragment"
+            app:destination="@id/viewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewFragment"
+        android:name="com.rcappstudio.complaintbox.ui.ViewFragment"
+        android:label="fragment_view"
+        tools:layout="@layout/fragment_view" >
+        <argument android:name="complaint"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue='""' />
+    </fragment>
+    <fragment
+        android:id="@+id/adminFragment4"
+        android:name="com.rcappstudio.complaintbox.ui.admin.fragments.AdminFragment4"
+        android:label="fragment_admin4"
+        tools:layout="@layout/fragment_admin4" >
+        <action
+            android:id="@+id/action_adminFragment4_to_viewFragment"
+            app:destination="@id/viewFragment" />
+    </fragment>
+</navigation>

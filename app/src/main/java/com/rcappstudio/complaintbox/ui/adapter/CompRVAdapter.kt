@@ -43,8 +43,11 @@ class CompRVAdapter(
         } else if (comp?.solved!! == 1){
             holder.compStatus.text = "Assigned"
             holder.compStatus.setTextColor(context.getColor(R.color.yellow_500))
+        } else if (comp?.solved!! == 2){
+            holder.compStatus.text = "Waiting for approval"
+            holder.compStatus.setTextColor(context.getColor(R.color.yellow_500))
         } else {
-            holder.compStatus.text = "Solved"
+            holder.compStatus.text = "Waiting for approval"
             holder.compStatus.setTextColor(context.getColor(R.color.lawn_green))
         }
         holder.itemView.setOnClickListener {

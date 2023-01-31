@@ -80,7 +80,7 @@ class UserViewModel(
         compList.postValue(mutableListOf())
         FirebaseData.liveData.observeForever {
             compList.postValue(it.filter {
-                it.solved == 1
+                it.solved == 1 || it.solved==2
             })
         }
 
@@ -111,7 +111,7 @@ class UserViewModel(
         compList.postValue(mutableListOf())
         FirebaseData.liveData.observeForever {
             compList.postValue(it.filter {
-                it.solved == 2
+                it.solved == 3
             })
         }
         /*database.getReference("Complaints")

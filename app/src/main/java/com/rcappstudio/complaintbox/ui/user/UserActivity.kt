@@ -44,7 +44,6 @@ class UserActivity : AppCompatActivity() {
     private fun initBottomNavigation(){
         binding.userBottomNavigationView.setOnItemSelectedListener {
             when(it.itemId){
-
                 R.id.all->{
                     viewModel.switchToFragment(R.id.userFragment1)
                 }

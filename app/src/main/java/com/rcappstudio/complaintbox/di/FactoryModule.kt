@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import com.google.firebase.database.FirebaseDatabase
+import com.rcappstudio.complaintbox.ui.admin.viewmodel.AdminViewModelFactory
 import com.rcappstudio.complaintbox.ui.staff.viewmodel.StaffViewModelFactory
 import com.rcappstudio.complaintbox.ui.user.viewmodel.UserViewModelFactory
 import dagger.Module
@@ -27,6 +28,12 @@ class FactoryModule {
     @Provides
     fun provideStaffViewModelFactory(app: Application, database: FirebaseDatabase) : StaffViewModelFactory{
         return StaffViewModelFactory(app, database)
+    }
+
+    @Singleton
+    @Provides
+    fun provideAdminViewModelFactory(app: Application, database: FirebaseDatabase) : AdminViewModelFactory{
+        return AdminViewModelFactory(app, database)
     }
 
 

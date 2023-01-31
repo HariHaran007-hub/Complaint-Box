@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/pending"
+        android:icon="@drawable/ic_assigned"
+        android:title="Assigned"
+        />
+
+    <item
+        android:id="@+id/solved"
+        android:icon="@drawable/ic_solved"
+        android:title="Solved"
+        />
+
+</menu>
