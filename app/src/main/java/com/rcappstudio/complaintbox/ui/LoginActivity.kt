@@ -11,7 +11,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.rcappstudio.complaintbox.R
 import com.rcappstudio.complaintbox.databinding.ActivityLoginBinding
+import com.rcappstudio.complaintbox.model.AdminKey
 import com.rcappstudio.complaintbox.model.KeyData
+import com.rcappstudio.complaintbox.ui.admin.AdminActivity
 import com.rcappstudio.complaintbox.ui.user.UserActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -75,48 +77,87 @@ class LoginActivity : AppCompatActivity() {
     private fun verifyUser(){
         if(binding.checkboxSTaff.isChecked){
             //Staff validation
-           database
-                .getReference("StaffKey/${FirebaseAuth.getInstance().uid}")
-                .get()
-                .addOnSuccessListener {
-                    if(it.exists()){
-                        val keyData = it.getValue(KeyData::class.java)
-                        sharedPreferences.edit().putBoolean("isStaff", true)
-                            .putString("department", keyData!!.department.toString())
-                            .apply()
-                        //TODO: Make an navigation to StaffActivity.kt
-                        startActivity(Intent(this , MainActivity::class.java))
-                        finish()
-                        Log.d("TAGData", "getData: ${keyData.department}")
-                    } else {
-                        Toast.makeText(this, "Make sure you are a staff", Toast.LENGTH_LONG)
-                            .show()
-                        FirebaseAuth.getInstance().signOut()
-                    }
+            adminCheck()
+        } else {
+            //Student validation
+            studentCheck()
+        }
+    }
 
+    private fun studentCheck(){
+        database
+            .getReference("StaffKey/${FirebaseAuth.getInstance().uid}")
+            .get()
+            .addOnSuccessListener {
+                if(it.exists()){
+                    Toast.makeText(this, "Don't log in with staff account", Toast.LENGTH_LONG)
+                        .show()
+                    FirebaseAuth.getInstance().signOut()
+                } else {
+                    //TODO: Make an navigation to UserActivity .kt
+                    database.getReference("AdminKey/${FirebaseAuth.getInstance().uid}")
+                        .get()
+                        .addOnSuccessListener {
+                            if(it.exists()){
+                                Toast.makeText(this, "Don't log in with staff account", Toast.LENGTH_LONG)
+                                    .show()
+                                FirebaseAuth.getInstance().signOut()
+                            } else {
+                                startActivity(Intent(this, UserActivity::class.java))
+                                finish()
+                            }
+                        }
                 }
-                .addOnFailureListener {
+            }
+    }
+
+    private fun adminCheck(){
+        database.getReference("AdminKey/${FirebaseAuth.getInstance().uid}")
+            .get()
+            .addOnSuccessListener {
+                if(it.exists()){
+                    val admin = it.getValue(AdminKey::class.java)
+                    Toast.makeText(this, "Admin login successful", Toast.LENGTH_LONG)
+                        .show()
+                    sharedPreferences.edit()
+                        .putBoolean("isAdmin", true)
+                        .putString("department", admin!!.department.toString())
+                        .apply()
+
+                    startActivity(Intent(this , AdminActivity::class.java))
+                    finish()
+                } else {
+                    staffCheck()
+                }
+            }
+    }
+
+    private fun staffCheck(){
+        database
+            .getReference("StaffKey/${FirebaseAuth.getInstance().uid}")
+            .get()
+            .addOnSuccessListener {
+                if(it.exists()){
+                    val keyData = it.getValue(KeyData::class.java)
+                    sharedPreferences.edit().putBoolean("isStaff", true)
+                        .putString("department", keyData!!.department.toString())
+                        .apply()
+                    //TODO: Make an navigation to StaffActivity.kt
+                    startActivity(Intent(this , MainActivity::class.java))
+                    finish()
+                    Log.d("TAGData", "getData: ${keyData.department}")
+                } else {
                     Toast.makeText(this, "Make sure you are a staff", Toast.LENGTH_LONG)
                         .show()
                     FirebaseAuth.getInstance().signOut()
                 }
-        } else {
-            //Student validation
-         database
-                .getReference("StaffKey/${FirebaseAuth.getInstance().uid}")
-                .get()
-                .addOnSuccessListener {
-                    if(it.exists()){
-                        Toast.makeText(this, "Don't log in with staff account", Toast.LENGTH_LONG)
-                            .show()
-                        FirebaseAuth.getInstance().signOut()
-                    } else {
-                        //TODO: Make an navigation to UserActivity .kt
-                        startActivity(Intent(this, UserActivity::class.java))
-                        finish()
-                    }
-                }
-        }
+
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Make sure you are a staff", Toast.LENGTH_LONG)
+                    .show()
+                FirebaseAuth.getInstance().signOut()
+            }
     }
 
     private fun joinNow(){

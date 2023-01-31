@@ -23,7 +23,7 @@
         android:theme="@style/Theme.ComplaintBox"
         tools:targetApi="31">
         <activity
-            android:name=".AdminActivity"
+            android:name=".ui.admin.AdminActivity"
             android:exported="false" />
         <activity
             android:name=".ui.SplashActivity"
