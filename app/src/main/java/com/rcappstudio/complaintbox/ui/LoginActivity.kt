@@ -12,6 +12,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.rcappstudio.complaintbox.R
 import com.rcappstudio.complaintbox.databinding.ActivityLoginBinding
 import com.rcappstudio.complaintbox.model.KeyData
+import com.rcappstudio.complaintbox.ui.user.UserActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -111,7 +112,7 @@ class LoginActivity : AppCompatActivity() {
                         FirebaseAuth.getInstance().signOut()
                     } else {
                         //TODO: Make an navigation to UserActivity .kt
-                        startActivity(Intent(this, MainActivity::class.java))
+                        startActivity(Intent(this, UserActivity::class.java))
                         finish()
                     }
                 }

@@ -4,19 +4,19 @@
     <item
         android:id="@+id/all"
         android:icon="@drawable/ic_all"
-        android:title="All complaints"
+        android:title="All"
         />
 
     <item
         android:id="@+id/pending"
         android:icon="@drawable/ic_pending"
-        android:title="Pending Complaints"
+        android:title="Pending"
         />
 
     <item
         android:id="@+id/completed"
         android:icon="@drawable/ic_completed"
-        android:title="Completed"
+        android:title="Solved"
         />
 
 
