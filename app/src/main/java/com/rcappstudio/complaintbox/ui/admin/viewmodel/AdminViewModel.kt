@@ -8,7 +8,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.messaging.FirebaseMessaging
 import com.rcappstudio.complaintbox.model.Complaint
 import com.rcappstudio.complaintbox.ui.FirebaseData
 
@@ -16,6 +18,7 @@ class AdminViewModel(
     private val app: Application,
     private val database: FirebaseDatabase
 ) : AndroidViewModel(app) {
+
 
     private var compList: MutableLiveData<List<Complaint?>> = MutableLiveData()
 
@@ -84,6 +87,8 @@ class AdminViewModel(
         return compList
     }
 
+
+
     fun getPendingData(): MutableLiveData<List<Complaint?>> {
         compList.postValue(mutableListOf())
         FirebaseData.liveData.observeForever {
@@ -112,5 +117,12 @@ class AdminViewModel(
             }
         }
         return compList
+    }
+
+    fun setNotificationToken(department: String){
+        FirebaseMessaging.getInstance().token.addOnSuccessListener {
+          database.getReference("Staff/$department/admin/${FirebaseAuth.getInstance().uid}/token")
+                .setValue(it)
+        }
     }
 }

@@ -1,12 +1,16 @@
 package com.rcappstudio.complaintbox.ui.user
 
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.rcappstudio.complaintbox.R
 import com.rcappstudio.complaintbox.databinding.ActivityUserBinding
+import com.rcappstudio.complaintbox.ui.FirebaseData
 import com.rcappstudio.complaintbox.ui.user.viewmodel.UserViewModel
 import com.rcappstudio.complaintbox.ui.user.viewmodel.UserViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,7 +24,23 @@ class UserActivity : AppCompatActivity() {
 
     private lateinit var viewModel: UserViewModel
 
-    lateinit var binding: ActivityUserBinding
+    @Inject
+    lateinit var firebaseData: FirebaseData
+
+    private lateinit var binding: ActivityUserBinding
+
+    private val onBackPressedCallback: OnBackPressedCallback by lazy {
+        object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            if(binding.userBottomNavigationView.selectedItemId == R.id.user_all ){
+                finish()
+            } else {
+                binding.userBottomNavigationView.selectedItemId = R.id.user_all
+            }
+        }
+    }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUserBinding.inflate(layoutInflater)
@@ -29,6 +49,7 @@ class UserActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, factory)[UserViewModel::class.java]
         viewModel.setNavController(getNavController())
         initBottomNavigation()
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 
     private fun initBottomNavigation() {
@@ -46,16 +67,19 @@ class UserActivity : AppCompatActivity() {
             }
             true
         }
+
+        getNavController().addOnDestinationChangedListener { _, destination, _ ->
+            Log.d("TAGDataNavigation", "initBottomNavigation: $destination")
+            if(destination.id == R.id.addComplaintFragment || destination.id == R.id.viewFragment) {
+                binding.userBottomNavigationView.visibility = View.GONE
+            } else {
+                binding.userBottomNavigationView.visibility  = View.VISIBLE
+            }
+        }
     }
 
 
     private fun getNavController(): NavController {
         return (supportFragmentManager.findFragmentById(R.id.userFragmentContainerView) as NavHostFragment).navController
-    }
-
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        binding.userBottomNavigationView.selectedItemId = R.id.user_all
     }
 }

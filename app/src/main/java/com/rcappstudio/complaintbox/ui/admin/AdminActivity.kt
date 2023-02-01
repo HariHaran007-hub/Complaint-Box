@@ -3,6 +3,7 @@ package com.rcappstudio.complaintbox.ui.admin
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -12,6 +13,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.rcappstudio.complaintbox.R
 import com.rcappstudio.complaintbox.databinding.ActivityAdminBinding
 import com.rcappstudio.complaintbox.ui.FirebaseData
+import com.rcappstudio.complaintbox.ui.FirebaseWorkersData
 import com.rcappstudio.complaintbox.ui.admin.viewmodel.AdminViewModel
 import com.rcappstudio.complaintbox.ui.admin.viewmodel.AdminViewModelFactory
 import com.rcappstudio.complaintbox.ui.user.viewmodel.UserViewModel
@@ -25,11 +27,15 @@ class AdminActivity : AppCompatActivity() {
     private lateinit var binding : ActivityAdminBinding
     @Inject
     lateinit var factory: AdminViewModelFactory
+
     private lateinit var viewModel: AdminViewModel
     @Inject
     lateinit var sharedPreferences: SharedPreferences
     @Inject
     lateinit var firebaseData: FirebaseData
+
+    @Inject
+    lateinit var firebaseWorkersData: FirebaseWorkersData
 
     private val department by lazy {
         sharedPreferences.getString("department","")
@@ -40,17 +46,16 @@ class AdminActivity : AppCompatActivity() {
         binding = ActivityAdminBinding.inflate(layoutInflater)
         supportActionBar!!.hide()
         setContentView(binding.root)
+        init()
+    }
+
+    private fun init(){
         viewModel = ViewModelProvider(this, factory)[AdminViewModel::class.java]
         viewModel.setNavController(getNavController())
         initBottomNavigation()
-        setNotificationToken()
-    }
+        viewModel.switchToFragment(R.id.adminFragment1)
+        viewModel.setNotificationToken(department!!)
 
-    private fun setNotificationToken(){
-        FirebaseMessaging.getInstance().token.addOnSuccessListener {
-                FirebaseDatabase.getInstance().getReference("Staff/$department/admin/${FirebaseAuth.getInstance().uid}/token")
-                    .setValue(it)
-        }
     }
 
     private fun initBottomNavigation() {
@@ -77,6 +82,8 @@ class AdminActivity : AppCompatActivity() {
     private fun getNavController(): NavController {
         return (supportFragmentManager.findFragmentById(R.id.adminFragmentContainerView) as NavHostFragment).navController
     }
+
+
 
 
     override fun onBackPressed() {

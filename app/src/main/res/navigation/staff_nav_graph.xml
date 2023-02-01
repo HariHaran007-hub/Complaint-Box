@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/viewFragment"
-        android:name="com.rcappstudio.complaintbox.ui.ViewFragment"
+        android:name="com.rcappstudio.complaintbox.ui.viewcomplaint.ViewFragment"
         android:label="fragment_view"
         tools:layout="@layout/fragment_view" >
         <argument android:name="complaint"

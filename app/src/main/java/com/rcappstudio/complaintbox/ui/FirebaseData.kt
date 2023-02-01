@@ -1,5 +1,6 @@
 package com.rcappstudio.complaintbox.ui
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.database.DataSnapshot
@@ -22,6 +23,7 @@ class FirebaseData {
                         val comp = c.getValue(Complaint::class.java)
                         list.add(comp!!)
                     }
+                    Log.d("TAGData", "onDataChange: ${list.size}")
                     liveData.postValue(list)
                 }
 

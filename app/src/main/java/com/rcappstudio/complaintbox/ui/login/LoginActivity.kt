@@ -1,6 +1,5 @@
-package com.rcappstudio.complaintbox.ui
+package com.rcappstudio.complaintbox.ui.login
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -15,11 +14,11 @@ import com.google.firebase.database.FirebaseDatabase
 import com.rcappstudio.complaintbox.databinding.ActivityLoginBinding
 import com.rcappstudio.complaintbox.model.AdminKey
 import com.rcappstudio.complaintbox.model.KeyData
+import com.rcappstudio.complaintbox.ui.MainActivity
 import com.rcappstudio.complaintbox.ui.admin.AdminActivity
 import com.rcappstudio.complaintbox.ui.staff.StaffActivity
 import com.rcappstudio.complaintbox.ui.user.UserActivity
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.qualifiers.ActivityContext
 import javax.inject.Inject
 
 
@@ -33,6 +32,10 @@ class LoginActivity : AppCompatActivity() {
 
     @Inject
     lateinit var database: FirebaseDatabase
+
+    private val alert: AlertDialog.Builder by lazy {
+        AlertDialog.Builder(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +66,9 @@ class LoginActivity : AppCompatActivity() {
                 //Register has seperat validation
                 registerNow()
             }
+        }
+        binding.forgetPassword.setOnClickListener {
+            showAlertDialog()
         }
     }
 
@@ -167,7 +173,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showAlertDialog(){
-        val alert: AlertDialog.Builder = AlertDialog.Builder(this)
         val edittext = EditText(this)
         alert.setMessage("Enter Your Message")
         alert.setTitle("Enter Your Title")
@@ -175,14 +180,26 @@ class LoginActivity : AppCompatActivity() {
         alert.setView(edittext)
 
         alert.setPositiveButton("Yes Option") { dialog, whichButton ->
-            val YouEditTextValue = edittext.text.toString()
+            if(edittext.text.toString().isNotEmpty()){
+                resetPassword(edittext.text.toString())
+            }
         }
 
         alert.setNegativeButton("No Option") { dialog, whichButton ->
-            // what ever you want to do with No option.
-        }
 
+        }
+        
         alert.show()
+
+    }
+
+
+    private fun resetPassword(email: String){
+        FirebaseAuth.getInstance().sendPasswordResetEmail(email).addOnCompleteListener {
+            if(it.isSuccessful){
+                Toast.makeText(this,"Reset email sent successfully", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     private fun joinNow(){

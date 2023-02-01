@@ -274,7 +274,8 @@ class AddComplaintFragment : Fragment() {
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     dismissDialog()
-                    requireActivity().onBackPressed()
+//                    requireActivity().onBackPressedDispatcher
+//                    requireActivity().onBackPressed()
                     getNotificationToken()
                 }
             }

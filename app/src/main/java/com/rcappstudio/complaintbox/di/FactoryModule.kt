@@ -7,6 +7,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.rcappstudio.complaintbox.ui.admin.viewmodel.AdminViewModelFactory
 import com.rcappstudio.complaintbox.ui.staff.viewmodel.StaffViewModelFactory
 import com.rcappstudio.complaintbox.ui.user.viewmodel.UserViewModelFactory
+import com.rcappstudio.complaintbox.ui.viewcomplaint.ViewViewModelFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,11 +37,15 @@ class FactoryModule {
         return AdminViewModelFactory(app, database)
     }
 
+    @Singleton
+    @Provides
+    fun providesViewViewModelFactory(app: Application, database: FirebaseDatabase) : ViewViewModelFactory{
+        return ViewViewModelFactory(app, database)
+    }
 
     @Singleton
     @Provides
     fun providesSharedPref(app: Application) : SharedPreferences{
         return app.getSharedPreferences("shared_pref", MODE_PRIVATE)
     }
-
 }
