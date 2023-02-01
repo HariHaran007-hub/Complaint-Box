@@ -16,6 +16,7 @@ import com.rcappstudio.complaintbox.databinding.ActivityLoginBinding
 import com.rcappstudio.complaintbox.model.AdminKey
 import com.rcappstudio.complaintbox.model.KeyData
 import com.rcappstudio.complaintbox.ui.admin.AdminActivity
+import com.rcappstudio.complaintbox.ui.staff.StaffActivity
 import com.rcappstudio.complaintbox.ui.user.UserActivity
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ActivityContext
@@ -148,7 +149,7 @@ class LoginActivity : AppCompatActivity() {
                         .putString("department", keyData!!.department.toString())
                         .apply()
                     //TODO: Make an navigation to StaffActivity.kt
-                    startActivity(Intent(this , MainActivity::class.java))
+                    startActivity(Intent(this , StaffActivity::class.java))
                     finish()
                     Log.d("TAGData", "getData: ${keyData.department}")
                 } else {

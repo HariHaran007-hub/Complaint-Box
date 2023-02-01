@@ -46,7 +46,7 @@ class StaffActivity : AppCompatActivity() {
 
     private fun setNotificationToken(){
         FirebaseMessaging.getInstance().token.addOnSuccessListener {
-            FirebaseDatabase.getInstance().getReference("Staff/$department/staff/${FirebaseAuth.getInstance().uid}/token")
+            FirebaseDatabase.getInstance().getReference("Staff/$department/workers/${FirebaseAuth.getInstance().uid}/token")
                 .setValue(it)
         }
     }
@@ -74,4 +74,5 @@ class StaffActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         binding.staffBottomNavigationView.selectedItemId = R.id.staff_pending
-    }}
+    }
+}

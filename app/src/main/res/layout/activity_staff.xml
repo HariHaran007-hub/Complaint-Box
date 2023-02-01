@@ -32,7 +32,7 @@
         android:layout_below="@id/toolBar"
         android:layout_alignParentStart="true"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/admin_nav_graph" />
+        app:navGraph="@navigation/staff_nav_graph" />
 
 
 

@@ -83,27 +83,6 @@ class UserViewModel(
                 it.solved == 1 || it.solved==2
             })
         }
-
-/*
-        database.getReference("Complaints")
-            .addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val list = mutableListOf<Complaint?>()
-                    if (snapshot.exists()) {
-                        for (c in snapshot.children) {
-//                            Log.d("TAGinController", "onDataChange: ${c.key}")
-                            val comp = c.getValue(Complaint::class.java)
-                            if (comp?.solved!! == 1) list.add(comp)
-                        }
-                        compList.postValue(list)
-                    }
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-//                    TODO("Not yet implemented")
-                }
-            })
-*/
         return compList
     }
 
@@ -114,24 +93,6 @@ class UserViewModel(
                 it.solved == 3
             })
         }
-        /*database.getReference("Complaints")
-            .addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val list = mutableListOf<Complaint?>()
-                    if (snapshot.exists()) {
-                        for (c in snapshot.children) {
-                            Log.d("TAGinController", "onDataChange: ${c.key}")
-                            val comp = c.getValue(Complaint::class.java)
-                            if (comp?.solved == 2) list.add(comp)
-                        }
-                        compList.postValue(list)
-                    }
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-//                    TODO("Not yet implemented")
-                }
-            })*/
         return compList
     }
 

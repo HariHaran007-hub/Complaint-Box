@@ -34,8 +34,7 @@ class SplashActivity : AppCompatActivity() {
                 if(isStaff){
                     startActivity(Intent(this , StaffActivity::class.java))
                     finish()
-                }
-                if(isAdmin){
+                } else if(isAdmin){
                     startActivity(Intent(this , AdminActivity::class.java))
                     finish()
                 } else {

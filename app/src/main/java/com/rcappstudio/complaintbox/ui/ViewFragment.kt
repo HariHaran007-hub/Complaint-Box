@@ -92,7 +92,7 @@ class ViewFragment : Fragment() {
                 binding.addNote.visibility = View.VISIBLE
 
                 binding.approveBt.setOnClickListener {
-                    markSolved(comp.complaintId.toString())
+                    markApproved(comp.complaintId.toString())
                 }
 
                 binding.addNote.setOnClickListener {
@@ -102,22 +102,22 @@ class ViewFragment : Fragment() {
                             comp.complaintId.toString()
                         )
                 }
-            } else if (comp.solved==0) {
+            } else if (comp.solved == 0) {
                 binding.assignBt.visibility = View.VISIBLE
                 // to open the bottom sheet here
             }
-        }
-
-        if (isStaff && department != "" && departmentList.contains(
-                department.toString().trim()
-            ) && comp.solved!! == 0
+        } else if (
+            isStaff
+            && department != ""
+            && departmentList.contains(department.toString().trim())
+            && comp.solved!! == 1
         ) {
             binding.tvViewComplaintNote.isEnabled = (comp.solved == 0)
             binding.solvedBt.visibility = View.VISIBLE
             binding.addNote.visibility = View.VISIBLE
 
             binding.solvedBt.setOnClickListener {
-                markAssigned(comp.complaintId.toString())
+                markSolved(comp.complaintId.toString())
             }
 
             binding.addNote.setOnClickListener {
@@ -130,9 +130,9 @@ class ViewFragment : Fragment() {
         }
     }
 
-    private fun markAssigned(complaintId: String) {
+    private fun markApproved(complaintId: String) {
         FirebaseDatabase.getInstance().getReference("Complaints/$complaintId/solved")
-            .setValue(1).addOnCompleteListener {
+            .setValue(3).addOnCompleteListener {
                 requireActivity().onBackPressed()
             }
     }
