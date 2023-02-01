@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
 import com.rcappstudio.complaintbox.R
 import com.rcappstudio.complaintbox.databinding.FragmentUser1Binding
@@ -56,6 +57,9 @@ class UserFragment1 : Fragment(),CompRVAdapter.CardClickListener {
     private fun clickListener(){
         binding.addComplaintFab.setOnClickListener {
             viewModel.switchToFragment(R.id.addComplaintFragment)
+            requireActivity()
+                .findViewById<BottomNavigationView>(R.id.userBottomNavigationView)
+                ?.visibility = View.GONE
         }
     }
 
@@ -66,6 +70,9 @@ class UserFragment1 : Fragment(),CompRVAdapter.CardClickListener {
     override fun onCardClick(comp: Complaint) {
         val directions = UserFragment1Directions.actionUserFragment1ToViewFragment(Gson().toJson(comp))
         viewModel.switchToViewFragment(directions, R.id.viewFragment)
+        requireActivity()
+            .findViewById<BottomNavigationView>(R.id.userBottomNavigationView)
+            ?.visibility = View.GONE
     }
 
 }

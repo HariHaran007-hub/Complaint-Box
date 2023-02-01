@@ -3,6 +3,7 @@ package com.rcappstudio.complaintbox.ui.admin
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -78,16 +79,16 @@ class AdminActivity : AppCompatActivity() {
         }
     }
 
-
     private fun getNavController(): NavController {
         return (supportFragmentManager.findFragmentById(R.id.adminFragmentContainerView) as NavHostFragment).navController
     }
 
-
-
-
     override fun onBackPressed() {
         super.onBackPressed()
-        binding.adminBottomNavigationView.selectedItemId = R.id.admin_pending
+        if (binding.adminBottomNavigationView.visibility == View.VISIBLE) {
+            binding.adminBottomNavigationView.selectedItemId = R.id.staff_pending
+        } else {
+            binding.adminBottomNavigationView.visibility = View.GONE
+        }
     }
 }

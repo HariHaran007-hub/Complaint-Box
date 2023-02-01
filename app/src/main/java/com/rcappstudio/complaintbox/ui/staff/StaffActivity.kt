@@ -3,6 +3,7 @@ package com.rcappstudio.complaintbox.ui.staff
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -65,7 +66,6 @@ class StaffActivity : AppCompatActivity() {
         }
     }
 
-
     private fun getNavController(): NavController {
         return (supportFragmentManager.findFragmentById(R.id.staffFragmentContainerView) as NavHostFragment).navController
     }
@@ -73,6 +73,10 @@ class StaffActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        binding.staffBottomNavigationView.selectedItemId = R.id.staff_pending
+        if (binding.staffBottomNavigationView.visibility == View.VISIBLE) {
+            binding.staffBottomNavigationView.selectedItemId = R.id.staff_pending
+        } else {
+            binding.staffBottomNavigationView.visibility = View.GONE
+        }
     }
 }

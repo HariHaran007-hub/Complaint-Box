@@ -39,5 +39,19 @@
             app:argType="string"
             app:nullable="true"
             android:defaultValue='""' />
+        <action
+            android:id="@+id/action_viewFragment_to_mediaViewFragment"
+            app:destination="@id/mediaViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mediaViewFragment"
+        android:name="com.rcappstudio.complaintbox.ui.supportfragments.MediaViewFragment"
+        android:label="fragment_media_view"
+        tools:layout="@layout/fragment_media_view" >
+        <argument android:name="mediaMap"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue='""' />
+
     </fragment>
 </navigation>
