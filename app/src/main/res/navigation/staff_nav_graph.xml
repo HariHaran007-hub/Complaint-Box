@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/staff_nav_graph"
+    app:startDestination="@id/staffFragment1">
+
+    <fragment
+        android:id="@+id/staffFragment1"
+        android:name="com.rcappstudio.complaintbox.ui.staff.fragments.StaffFragment1"
+        android:label="fragment_staff1"
+        tools:layout="@layout/fragment_staff1" >
+        <action
+            android:id="@+id/action_staffFragment1_self"
+            app:destination="@id/staffFragment1" />
+        <action
+            android:id="@+id/action_staffFragment1_to_viewFragment"
+            app:destination="@id/viewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/staffFragment2"
+        android:name="com.rcappstudio.complaintbox.ui.staff.fragments.StaffFragment2"
+        android:label="fragment_staff2"
+        tools:layout="@layout/fragment_staff2" >
+        <argument android:name="complaint"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue='""' />
+        <action
+            android:id="@+id/action_staffFragment2_to_viewFragment"
+            app:destination="@id/viewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewFragment"
+        android:name="com.rcappstudio.complaintbox.ui.ViewFragment"
+        android:label="fragment_view"
+        tools:layout="@layout/fragment_view" >
+        <argument android:name="complaint"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue='""' />
+    </fragment>
+</navigation>

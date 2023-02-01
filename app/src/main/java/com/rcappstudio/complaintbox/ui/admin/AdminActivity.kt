@@ -11,6 +11,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.rcappstudio.complaintbox.R
 import com.rcappstudio.complaintbox.databinding.ActivityAdminBinding
+import com.rcappstudio.complaintbox.ui.FirebaseData
 import com.rcappstudio.complaintbox.ui.admin.viewmodel.AdminViewModel
 import com.rcappstudio.complaintbox.ui.admin.viewmodel.AdminViewModelFactory
 import com.rcappstudio.complaintbox.ui.user.viewmodel.UserViewModel
@@ -27,6 +28,8 @@ class AdminActivity : AppCompatActivity() {
     private lateinit var viewModel: AdminViewModel
     @Inject
     lateinit var sharedPreferences: SharedPreferences
+    @Inject
+    lateinit var firebaseData: FirebaseData
 
     private val department by lazy {
         sharedPreferences.getString("department","")

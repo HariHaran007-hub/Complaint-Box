@@ -47,7 +47,7 @@ class CompRVAdapter(
             holder.compStatus.text = "Waiting for approval"
             holder.compStatus.setTextColor(context.getColor(R.color.yellow_500))
         } else {
-            holder.compStatus.text = "Waiting for approval"
+            holder.compStatus.text = "Approved"
             holder.compStatus.setTextColor(context.getColor(R.color.lawn_green))
         }
         holder.itemView.setOnClickListener {

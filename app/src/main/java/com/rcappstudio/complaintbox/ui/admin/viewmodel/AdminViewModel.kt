@@ -3,6 +3,7 @@ package com.rcappstudio.complaintbox.ui.admin.viewmodel
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
@@ -61,7 +62,7 @@ class AdminViewModel(
                     it.filter { comp ->
                         comp.solved == 3
                                 && comp.department?.trim()?.split(",")?.contains(dept)!!
-                    }.toList()
+                    }
                 )
             }
         }
@@ -76,7 +77,7 @@ class AdminViewModel(
                     it.filter { comp ->
                         comp.department?.trim()?.split(",")?.contains(dept)!!
                                 && comp.solved == 2
-                    }.toList()
+                    }
                 )
             }
         }
@@ -91,7 +92,7 @@ class AdminViewModel(
                     it.filter { comp ->
                         comp.solved == 0
                                 && comp.department?.trim()?.split(",")?.contains(dept)!!
-                    }.toList()
+                    }
                 )
             }
         }
@@ -106,7 +107,7 @@ class AdminViewModel(
                     it.filter { comp ->
                         comp.solved == 1
                                 && comp.department?.trim()?.split(",")?.contains(dept)!!
-                    }.toList()
+                    }
                 )
             }
         }

@@ -3,32 +3,31 @@ package com.rcappstudio.complaintbox.ui
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.Gson
-import com.rcappstudio.complaintbox.R
 import com.rcappstudio.complaintbox.databinding.FragmentViewBinding
 import com.rcappstudio.complaintbox.model.Complaint
 import com.rcappstudio.complaintbox.ui.user.fragments.ImageViewRvAdapter
 import com.rcappstudio.complaintbox.utils.getDateTime
-import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class ViewFragment : Fragment() {
 
-    val args : ViewFragmentArgs by navArgs()
+    val args: ViewFragmentArgs by navArgs()
+
     @Inject
     lateinit var exoPlayer: ExoPlayer
+
     @Inject
     lateinit var sharedPref: SharedPreferences
     private lateinit var binding: FragmentViewBinding
@@ -39,7 +38,8 @@ class ViewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentViewBinding.inflate(layoutInflater, container, false)
-        binding.ivViewComplaint.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL, false)
+        binding.ivViewComplaint.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         return binding.root
     }
 
@@ -47,7 +47,7 @@ class ViewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val comp = Gson().fromJson(args.complaint,Complaint::class.java)
+        val comp = Gson().fromJson(args.complaint, Complaint::class.java)
         val departmentList = comp.department!!.split(",")
         val isStaff = sharedPref.getBoolean("isStaff", false)
         val isAdmin = sharedPref.getBoolean("isAdmin", false)
@@ -64,8 +64,10 @@ class ViewFragment : Fragment() {
         if (comp.imageUrlList != null && comp.imageUrlList.isNotEmpty()) {
             binding.ivViewComplaint.visibility = View.VISIBLE
             Log.d("TAGData", "onViewCreated: ${comp.imageUrlList.size}")
-            imageRvAdapter = ImageViewRvAdapter(requireContext(),
-                urlList = comp.imageUrlList as MutableList<String>){url, position ->
+            imageRvAdapter = ImageViewRvAdapter(
+                requireContext(),
+                urlList = comp.imageUrlList as MutableList<String>
+            ) { url, position ->
 //                Picasso.get().load(url).into(binding?.viewImageFullScr)
             }
             binding.ivViewComplaint.adapter = imageRvAdapter
@@ -83,21 +85,26 @@ class ViewFragment : Fragment() {
         binding.tvViewComplaintNote.setText(comp.note.toString())
 
         if (isAdmin) {
-            binding.approveBt.visibility = View.VISIBLE
-            binding.tvViewComplaintNote.isEnabled = (comp.solved == 0)
-            binding.solvedBt.visibility = View.VISIBLE
-            binding.addNote.visibility = View.VISIBLE
+            if (comp.solved == 2) {
+                binding.approveBt.visibility = View.VISIBLE
+                binding.tvViewComplaintNote.isEnabled = (comp.solved == 0)
+//            binding.solvedBt.visibility = View.VISIBLE
+                binding.addNote.visibility = View.VISIBLE
 
-            binding.approveBt.setOnClickListener {
-                markSolved(comp.complaintId.toString())
-            }
+                binding.approveBt.setOnClickListener {
+                    markSolved(comp.complaintId.toString())
+                }
 
-            binding.addNote.setOnClickListener {
-                if (binding.tvViewComplaintNote.text.toString() != "")
-                    addNote(
-                        binding.tvViewComplaintNote.text.toString(),
-                        comp.complaintId.toString()
-                    )
+                binding.addNote.setOnClickListener {
+                    if (binding.tvViewComplaintNote.text.toString() != "")
+                        addNote(
+                            binding.tvViewComplaintNote.text.toString(),
+                            comp.complaintId.toString()
+                        )
+                }
+            } else if (comp.solved==0) {
+                binding.assignBt.visibility = View.VISIBLE
+                // to open the bottom sheet here
             }
         }
 

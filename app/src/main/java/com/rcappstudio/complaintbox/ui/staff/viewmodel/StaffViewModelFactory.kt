@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.database.FirebaseDatabase
 
-
 class StaffViewModelFactory(
 private val app : Application,
 private val database: FirebaseDatabase

@@ -4,7 +4,7 @@
     <item
         android:id="@+id/staff_pending"
         android:icon="@drawable/ic_assigned"
-        android:title="Assigned"
+        android:title="Pending"
         />
 
     <item
