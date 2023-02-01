@@ -84,7 +84,7 @@ class ViewFragment : Fragment() {
         val departmentList = comp.department!!.split(",")
         val isStaff = sharedPref.getBoolean("isStaff", false)
         val isAdmin = sharedPref.getBoolean("isAdmin", false)
-         department = sharedPref.getString("department", "")!!
+        department = sharedPref.getString("department", "")!!
         complaintId = comp.complaintId.toString()
         Log.d("TAGData", "onViewCreated: ${comp.complaintId}")
         viewModel = ViewModelProvider(this, factory)[ViewFragmentViewModel::class.java]

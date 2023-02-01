@@ -17,6 +17,7 @@ class FirebaseWorkersData(
     }
 
     fun getWorkerData(){
+
         val department = sharedPreferences.getString("department", "")
         if(department != ""){
             FirebaseDatabase.getInstance().getReference("Staff/$department/workers")
