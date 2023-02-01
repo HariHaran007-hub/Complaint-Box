@@ -46,7 +46,7 @@ class ViewFragmentViewModel(
 
     private fun setNotificationToken(token: String, notificationAPI: NotificationAPI) {
         PushNotification(
-            NotificationData("Got an problem", "Some one has posted an problem click to view."),
+            NotificationData("Assign an task to you", "Click to view your task"),
             token
         ).also {
             sendNotification(it,notificationAPI)
