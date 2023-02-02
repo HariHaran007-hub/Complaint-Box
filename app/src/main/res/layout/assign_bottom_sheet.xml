@@ -46,7 +46,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/workerRv"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_180sdp"
                     tools:listitem="@layout/assign_item"
                     />
                 

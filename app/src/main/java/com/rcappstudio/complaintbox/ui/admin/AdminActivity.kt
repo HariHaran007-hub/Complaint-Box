@@ -77,6 +77,14 @@ class AdminActivity : AppCompatActivity() {
             }
             true
         }
+
+        getNavController().addOnDestinationChangedListener{_, dest, _->
+            if(dest.id == R.id.viewFragment || dest.id == R.id.mediaViewFragment){
+                binding.adminBottomNavigationView.visibility = View.GONE
+            } else{
+                binding.adminBottomNavigationView.visibility = View.VISIBLE
+            }
+        }
     }
 
     private fun getNavController(): NavController {
@@ -85,6 +93,6 @@ class AdminActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-            binding.adminBottomNavigationView.selectedItemId = R.id.staff_pending
+
     }
 }

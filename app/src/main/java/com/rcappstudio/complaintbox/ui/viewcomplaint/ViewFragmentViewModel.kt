@@ -95,5 +95,12 @@ class ViewFragmentViewModel(
         }
     }
 
-
+    fun switchBackToFragment(destinationId: Int){
+        if(isFragmentInBackStack(destinationId)){
+            navController.popBackStack(destinationId, false)
+        } else{
+            navController.navigate(destinationId)
+        }
+    }
+    
 }

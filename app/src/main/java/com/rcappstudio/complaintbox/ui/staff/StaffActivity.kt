@@ -64,6 +64,13 @@ class StaffActivity : AppCompatActivity() {
             }
             true
         }
+        getNavController().addOnDestinationChangedListener{_, dest, _->
+            if(dest.id == R.id.viewFragment || dest.id == R.id.mediaViewFragment){
+                binding.staffBottomNavigationView.visibility = View.GONE
+            } else{
+                binding.staffBottomNavigationView.visibility = View.VISIBLE
+            }
+        }
     }
 
     private fun getNavController(): NavController {
@@ -73,6 +80,7 @@ class StaffActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-            binding.staffBottomNavigationView.selectedItemId = R.id.staff_pending
+        binding.staffBottomNavigationView.selectedItemId = R.id.staff_pending
+
     }
 }

@@ -13,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -161,7 +162,6 @@ class ViewFragment : Fragment() {
                 binding.assignBt.setOnClickListener {
                     initBottomSheet()
                 }
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
             }
         } else if (
             isStaff
@@ -185,6 +185,8 @@ class ViewFragment : Fragment() {
                     )
             }
         }
+
+
 
     }
 
@@ -215,15 +217,18 @@ class ViewFragment : Fragment() {
         bottomSheetBehavior = BottomSheetBehavior.from(binding.assignBottomSheet.root)
         bottomSheetBehavior.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
-            override fun onStateChanged(bottomSheet: View, newState: Int) {}
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+
+            }
             override fun onSlide(bottomSheet: View, slideOffset: Float) {}
         })
         bottomSheetBehavior.isDraggable = true
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         setBottomSheetRv()
     }
 
     private fun setBottomSheetRv(){
-        binding.assignBottomSheet.workerRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL , false)
+        binding.assignBottomSheet.workerRv.layoutManager = LinearLayoutManager(requireContext())
         FirebaseWorkersData.liveData.observe(viewLifecycleOwner){
             if(it != null){
                 binding.assignBottomSheet.workerRv.adapter = WorkersAdapter(requireContext(),it){uid,token->
@@ -241,13 +246,17 @@ class ViewFragment : Fragment() {
                 viewModel.assignTaskToWorker(department,uid,token,notificationAPI,complaintId )
                 viewModel.statusChangeSuccessfulLiveData.observe(viewLifecycleOwner){
                     if(it){
-                        requireActivity().onBackPressed()
+
+                        viewModel.switchBackToFragment(R.id.adminFragment1)
                     }
                 }
             }
             .setNegativeButton("Cancel",null)
-            .show();
+            .show()
+
+
     }
+
 
 
 }
