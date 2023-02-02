@@ -57,9 +57,6 @@ class UserFragment1 : Fragment(),CompRVAdapter.CardClickListener {
     private fun clickListener(){
         binding.addComplaintFab.setOnClickListener {
             viewModel.switchToFragment(R.id.addComplaintFragment)
-            requireActivity()
-                .findViewById<BottomNavigationView>(R.id.userBottomNavigationView)
-                ?.visibility = View.GONE
         }
     }
 
@@ -70,9 +67,6 @@ class UserFragment1 : Fragment(),CompRVAdapter.CardClickListener {
     override fun onCardClick(comp: Complaint) {
         val directions = UserFragment1Directions.actionUserFragment1ToViewFragment(Gson().toJson(comp))
         viewModel.switchToViewFragment(directions, R.id.viewFragment)
-        requireActivity()
-            .findViewById<BottomNavigationView>(R.id.userBottomNavigationView)
-            ?.visibility = View.GONE
     }
 
 }

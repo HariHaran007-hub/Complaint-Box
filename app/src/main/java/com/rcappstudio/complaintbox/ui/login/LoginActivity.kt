@@ -14,7 +14,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.rcappstudio.complaintbox.databinding.ActivityLoginBinding
 import com.rcappstudio.complaintbox.model.AdminKey
 import com.rcappstudio.complaintbox.model.KeyData
-import com.rcappstudio.complaintbox.ui.MainActivity
 import com.rcappstudio.complaintbox.ui.admin.AdminActivity
 import com.rcappstudio.complaintbox.ui.staff.StaffActivity
 import com.rcappstudio.complaintbox.ui.user.UserActivity
@@ -218,7 +217,7 @@ class LoginActivity : AppCompatActivity() {
             .createUserWithEmailAndPassword(binding.registerEmailId.text.toString(), binding.registerPassword.text.toString())
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    startActivity(Intent(this, MainActivity::class.java))
+                    startActivity(Intent(this, UserActivity::class.java))
                     finish()
                     Log.d("TAGData", "createUserWithEmail:success")
                 } else {
@@ -226,13 +225,5 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(this, "Unable to create account", Toast.LENGTH_LONG).show()
                 }
             }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        if(FirebaseAuth.getInstance().currentUser != null){
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
-        }
     }
 }

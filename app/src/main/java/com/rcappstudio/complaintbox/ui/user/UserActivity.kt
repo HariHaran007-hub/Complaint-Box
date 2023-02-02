@@ -56,7 +56,9 @@ class UserActivity : AppCompatActivity() {
         }
 
         getNavController().addOnDestinationChangedListener { _, destination, _ ->
-            if(destination.id == R.id.viewFragment || destination.id == R.id.mediaViewFragment){
+            if(destination.id == R.id.viewFragment
+                || destination.id == R.id.mediaViewFragment
+                || destination.id == R.id.addComplaintFragment){
                 binding.userBottomNavigationView.visibility = View.GONE
             } else if (destination.id == R.id.userFragment3){
                 binding.userBottomNavigationView.visibility = View.VISIBLE

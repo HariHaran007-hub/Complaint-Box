@@ -219,13 +219,6 @@
             android:textColor="@color/black"
             android:textColorHint="@color/black" />
 
-
-        <Spinner
-            android:id="@+id/select_department"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8sdp" />
-
         <Button
             android:id="@+id/reister_button"
             android:layout_width="match_parent"

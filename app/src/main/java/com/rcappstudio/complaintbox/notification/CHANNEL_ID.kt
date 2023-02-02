@@ -16,7 +16,6 @@ import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.rcappstudio.complaintbox.R
-import com.rcappstudio.complaintbox.ui.MainActivity
 import com.rcappstudio.complaintbox.ui.login.SplashActivity
 
 
