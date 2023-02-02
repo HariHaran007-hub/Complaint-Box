@@ -81,15 +81,17 @@ class StaffViewModel(
     fun getPendingData(): MutableLiveData<List<Complaint?>> {
         compList.postValue(mutableListOf())
         compIds.observeForever { cIds ->
-            FirebaseData.liveData.observeForever { cList ->
-                if (cList.isNotEmpty()) {
-                    compList.postValue(
-                        cList.filter { comp ->
-                            comp.solved == 1
-                                    && comp.department?.trim()?.split(",")?.contains(dept)!!
-                                    && cIds.contains(comp.complaintId)
-                        }
-                    )
+            if (cIds.isNotEmpty()) {
+                FirebaseData.liveData.observeForever { cList ->
+                    if (cList.isNotEmpty()) {
+                        compList.postValue(
+                            cList.filter { comp ->
+                                comp.solved == 1
+                                        && comp.department?.trim()?.split(",")?.contains(dept)!!
+                                        && cIds.contains(comp.complaintId)
+                            }
+                        )
+                    }
                 }
             }
         }
@@ -99,15 +101,17 @@ class StaffViewModel(
     fun getSolvedData(): MutableLiveData<List<Complaint?>> {
         compList.postValue(mutableListOf())
         compIds.observeForever { cIds ->
-            FirebaseData.liveData.observeForever { cList ->
-                if (cList.isNotEmpty()) {
-                    compList.postValue(
-                        cList.filter { comp ->
-                            comp.solved!! >= 2
-                                    && comp.department?.trim()?.split(",")?.contains(dept)!!
-                                    && cIds.contains(comp.complaintId)
-                        }
-                    )
+            if (cIds.isNotEmpty()) {
+                FirebaseData.liveData.observeForever { cList ->
+                    if (cList.isNotEmpty()) {
+                        compList.postValue(
+                            cList.filter { comp ->
+                                comp.solved!! >= 2
+                                        && comp.department?.trim()?.split(",")?.contains(dept)!!
+                                        && cIds.contains(comp.complaintId)
+                            }
+                        )
+                    }
                 }
             }
         }

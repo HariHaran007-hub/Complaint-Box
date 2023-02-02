@@ -14,7 +14,6 @@ import com.google.gson.Gson
 import com.rcappstudio.complaintbox.R
 import com.rcappstudio.complaintbox.databinding.FragmentStaff1Binding
 import com.rcappstudio.complaintbox.model.Complaint
-import com.rcappstudio.complaintbox.ui.FirebaseData
 import com.rcappstudio.complaintbox.ui.adapter.CompRVAdapter
 import com.rcappstudio.complaintbox.ui.staff.viewmodel.StaffViewModel
 import com.rcappstudio.complaintbox.ui.staff.viewmodel.StaffViewModelFactory

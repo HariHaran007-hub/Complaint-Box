@@ -14,7 +14,6 @@ import com.google.gson.Gson
 import com.rcappstudio.complaintbox.R
 import com.rcappstudio.complaintbox.databinding.FragmentStaff2Binding
 import com.rcappstudio.complaintbox.model.Complaint
-import com.rcappstudio.complaintbox.ui.FirebaseData
 import com.rcappstudio.complaintbox.ui.adapter.CompRVAdapter
 import com.rcappstudio.complaintbox.ui.staff.viewmodel.StaffViewModel
 import com.rcappstudio.complaintbox.ui.staff.viewmodel.StaffViewModelFactory
@@ -25,8 +24,6 @@ import javax.inject.Inject
 class StaffFragment2 : Fragment(), CompRVAdapter.CardClickListener {
 
     private lateinit var binding: FragmentStaff2Binding
-    @Inject
-    lateinit var firebaseData: FirebaseData
     @Inject
     lateinit var factory: StaffViewModelFactory
     private lateinit var viewModel: StaffViewModel
