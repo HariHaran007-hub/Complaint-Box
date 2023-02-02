@@ -151,7 +151,7 @@ class ViewFragment : Fragment() {
 
             if (comp.solved == 2) {
                 binding.approveBt.visibility = View.VISIBLE
-                binding.tvViewComplaintNote.isEnabled = (comp.solved == 0)
+                binding.tvViewComplaintNote.isEnabled = (comp.solved == 2)
                 binding.addNote.visibility = View.VISIBLE
 
                 binding.approveBt.setOnClickListener {
@@ -168,7 +168,8 @@ class ViewFragment : Fragment() {
             } else if (comp.solved == 0) {
                 binding.assignBt.visibility = View.VISIBLE
                 binding.assignBt.setOnClickListener {
-                    initBottomSheet()
+                    binding.assignView.visibility = View.VISIBLE
+                    setBottomSheetRv()
                 }
             }
         } else if (
@@ -192,11 +193,7 @@ class ViewFragment : Fragment() {
                         comp.complaintId.toString()
                     )
             }
-
         }
-
-
-
     }
 
 
@@ -226,7 +223,7 @@ class ViewFragment : Fragment() {
             }
     }
 
-    private fun initBottomSheet() {
+   /* private fun initBottomSheet() {
         bottomSheetBehavior = BottomSheetBehavior.from(binding.assignBottomSheet.root)
         bottomSheetBehavior.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
@@ -238,13 +235,13 @@ class ViewFragment : Fragment() {
         bottomSheetBehavior.isDraggable = true
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         setBottomSheetRv()
-    }
+    }*/
 
     private fun setBottomSheetRv(){
-        binding.assignBottomSheet.workerRv.layoutManager = LinearLayoutManager(requireContext())
+        binding.workerRv.layoutManager = LinearLayoutManager(requireContext())
         FirebaseWorkersData.liveData.observe(viewLifecycleOwner){
             if(it != null){
-                binding.assignBottomSheet.workerRv.adapter = WorkersAdapter(requireContext(),it){uid,token->
+                binding.workerRv.adapter = WorkersAdapter(requireContext(),it){uid,token->
                    showAlertDialog(uid,token)
                 }
             }
@@ -266,8 +263,6 @@ class ViewFragment : Fragment() {
             }
             .setNegativeButton("Cancel",null)
             .show()
-
-
     }
 
 

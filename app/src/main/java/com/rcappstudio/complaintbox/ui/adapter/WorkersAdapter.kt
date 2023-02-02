@@ -30,6 +30,9 @@ class WorkersAdapter (
         val workerData = workerDataMap.values.toMutableList()[position]
 
         binding.workerName.text = workerData.name
+        if(workerData.assignments != null)
+            binding.workerPending.text = workerData.assignments!!.values.size.toString()
+        else binding.workerPending.text = "0"
         binding.root.setOnClickListener {
             onClick.invoke(workerDataMap.keys.toMutableList()[position], workerData.token.toString())
         }
