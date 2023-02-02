@@ -65,8 +65,14 @@ class StaffActivity : AppCompatActivity() {
             true
         }
         getNavController().addOnDestinationChangedListener{_, dest, _->
-            if(dest.id == R.id.viewFragment || dest.id == R.id.mediaViewFragment){
+            if(dest.id == R.id.viewFragment || dest.id == R.id.mediaViewFragment) {
                 binding.staffBottomNavigationView.visibility = View.GONE
+            } else if(dest.id == R.id.staffFragment1) {
+                binding.staffBottomNavigationView.visibility = View.VISIBLE
+                binding.staffBottomNavigationView.selectedItemId = R.id.staff_pending
+            } else if(dest.id == R.id.staffFragment2) {
+                binding.staffBottomNavigationView.visibility = View.VISIBLE
+                binding.staffBottomNavigationView.selectedItemId = R.id.staff_solved
             } else{
                 binding.staffBottomNavigationView.visibility = View.VISIBLE
             }
@@ -77,9 +83,4 @@ class StaffActivity : AppCompatActivity() {
         return (supportFragmentManager.findFragmentById(R.id.staffFragmentContainerView) as NavHostFragment).navController
     }
 
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        binding.staffBottomNavigationView.selectedItemId = R.id.staff_pending
-    }
 }

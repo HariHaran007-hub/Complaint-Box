@@ -213,7 +213,9 @@ class ViewFragment : Fragment() {
 
     private fun addNote(note: String, complaintId: String) {
         FirebaseDatabase.getInstance().getReference("Complaints/$complaintId/note")
-            .setValue(note)
+            .setValue(note).addOnSuccessListener {
+                Toast.makeText(requireContext(),"Note added successfully", Toast.LENGTH_SHORT).show()
+            }
     }
 
     private fun markSolved(complaintId: String) {
