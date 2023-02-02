@@ -17,6 +17,7 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.rcappstudio.complaintbox.R
 import com.rcappstudio.complaintbox.ui.MainActivity
+import com.rcappstudio.complaintbox.ui.login.SplashActivity
 
 
 import kotlin.random.Random
@@ -46,7 +47,7 @@ class FirebaseService : FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
 
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, SplashActivity::class.java)
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val notificationID = Random.nextInt()
 

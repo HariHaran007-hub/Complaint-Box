@@ -3,6 +3,7 @@ package com.rcappstudio.complaintbox.ui.viewcomplaint
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -68,6 +69,13 @@ class ViewFragment : Fragment() {
 
     private lateinit var complaintId: String
 
+    private val isStaff by lazy {
+        sharedPref.getBoolean("isStaff", false)
+    }
+
+    private val isAdmin by lazy {
+        sharedPref.getBoolean("isAdmin", false)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -184,14 +192,19 @@ class ViewFragment : Fragment() {
                         comp.complaintId.toString()
                     )
             }
+
         }
 
 
 
     }
 
+
+
     private fun getNavController(): NavController {
-        return (requireActivity().supportFragmentManager.findFragmentById(R.id.adminFragmentContainerView) as NavHostFragment).navController
+        if(isAdmin) return (requireActivity().supportFragmentManager.findFragmentById(R.id.adminFragmentContainerView) as NavHostFragment).navController
+        else if(isStaff) return (requireActivity().supportFragmentManager.findFragmentById(R.id.staffFragmentContainerView)as NavHostFragment).navController
+        return (requireActivity().supportFragmentManager.findFragmentById(R.id.userFragmentContainerView)as NavHostFragment).navController
     }
 
     private fun markApproved(complaintId: String) {

@@ -81,6 +81,5 @@ class StaffActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         binding.staffBottomNavigationView.selectedItemId = R.id.staff_pending
-
     }
 }

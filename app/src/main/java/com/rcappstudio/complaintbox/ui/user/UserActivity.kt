@@ -58,8 +58,15 @@ class UserActivity : AppCompatActivity() {
         getNavController().addOnDestinationChangedListener { _, destination, _ ->
             if(destination.id == R.id.viewFragment || destination.id == R.id.mediaViewFragment){
                 binding.userBottomNavigationView.visibility = View.GONE
-            } else{
+            } else if (destination.id == R.id.userFragment3){
                 binding.userBottomNavigationView.visibility = View.VISIBLE
+                binding.userBottomNavigationView.selectedItemId = R.id.user_solved
+            }else if (destination.id == R.id.userFragment2){
+                binding.userBottomNavigationView.visibility = View.VISIBLE
+                binding.userBottomNavigationView.selectedItemId = R.id.user_pending
+            } else {
+                binding.userBottomNavigationView.visibility = View.VISIBLE
+                binding.userBottomNavigationView.selectedItemId = R.id.user_all
             }
         }
     }

@@ -30,6 +30,9 @@ class SplashActivity : AppCompatActivity() {
         Handler().postDelayed({
             val isStaff = sharedPreferences.getBoolean("isStaff", false)
             val isAdmin = sharedPreferences.getBoolean("isAdmin", false)
+
+            Log.d("TAGData", "onCreate: isStaff-> $isStaff , isAdmin->$isAdmin")
+
             if(FirebaseAuth.getInstance().currentUser != null){
                 //TODO: Based on category redirect to their respective pages
                 Log.d("TAGData", "onCreate: $isStaff, $isAdmin")
