@@ -12,6 +12,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.exoplayer2.ExoPlayer
@@ -88,6 +90,8 @@ class ViewFragment : Fragment() {
         complaintId = comp.complaintId.toString()
         Log.d("TAGData", "onViewCreated: ${comp.complaintId}")
         viewModel = ViewModelProvider(this, factory)[ViewFragmentViewModel::class.java]
+        viewModel.setNavController(getNavController())
+
         binding.tvViewComplaintTitle.text = comp.title
         binding.tvViewComplaintDate.text = getDateTime(comp.timeStamp!!)
         binding.tvViewComplaintDesc.text = comp.description
@@ -103,16 +107,31 @@ class ViewFragment : Fragment() {
                 requireContext(),
                 urlList = comp.imageUrlList as MutableList<String>
             ) { url, position ->
-//                Picasso.get().load(url).into(binding?.viewImageFullScr)
+                val map = mutableMapOf<String, String>()
+                map["image"] = url
+                val directions = ViewFragmentDirections.actionViewFragmentToMediaViewFragment(
+                    Gson().toJson(map)
+                )
+                viewModel.switchToMediaFragment(directions, R.id.mediaViewFragment)
             }
             binding.ivViewComplaint.adapter = imageRvAdapter
         }
         if (comp.videoUrl != null && comp.videoUrl != "") {
             val video = MediaItem.fromUri(comp.videoUrl)
             binding.vvViewComplaint.visibility = View.VISIBLE
+            binding.vvViewComplaint.setOnClickListener {
+                val map = mutableMapOf<String, String>()
+                val gson = Gson()
+                map["video"] = comp.videoUrl
+                val directions = ViewFragmentDirections.actionViewFragmentToMediaViewFragment(
+                    gson.toJson(map)
+                )
+                viewModel.switchToMediaFragment(directions, R.id.mediaViewFragment)
+
+            }
             exoPlayer.setMediaItem(video)
             exoPlayer.prepare()
-            exoPlayer.play()
+//            exoPlayer.play()
         }
         binding.tvViewComplaintDept.text = "Department: ${comp.department}"
         binding.addNote.visibility = View.GONE
@@ -124,7 +143,6 @@ class ViewFragment : Fragment() {
             if (comp.solved == 2) {
                 binding.approveBt.visibility = View.VISIBLE
                 binding.tvViewComplaintNote.isEnabled = (comp.solved == 0)
-//            binding.solvedBt.visibility = View.VISIBLE
                 binding.addNote.visibility = View.VISIBLE
 
                 binding.approveBt.setOnClickListener {
@@ -140,17 +158,18 @@ class ViewFragment : Fragment() {
                 }
             } else if (comp.solved == 0) {
                 binding.assignBt.visibility = View.VISIBLE
-                // to open the bottom sheet here
-                initBottomSheet()
-                bottomSheetBehavior.state =BottomSheetBehavior.STATE_EXPANDED
+                binding.assignBt.setOnClickListener {
+                    initBottomSheet()
+                }
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
             }
         } else if (
             isStaff
             && department != ""
-            && departmentList.contains(department.toString().trim())
+            && departmentList.contains(department)
             && comp.solved!! == 1
         ) {
-            binding.tvViewComplaintNote.isEnabled = (comp.solved == 0)
+            binding.tvViewComplaintNote.isEnabled = (comp.solved == 1)
             binding.solvedBt.visibility = View.VISIBLE
             binding.addNote.visibility = View.VISIBLE
 
@@ -167,6 +186,10 @@ class ViewFragment : Fragment() {
             }
         }
 
+    }
+
+    private fun getNavController(): NavController {
+        return (requireActivity().supportFragmentManager.findFragmentById(R.id.adminFragmentContainerView) as NavHostFragment).navController
     }
 
     private fun markApproved(complaintId: String) {

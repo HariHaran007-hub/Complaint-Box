@@ -73,10 +73,6 @@ class StaffActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        if (binding.staffBottomNavigationView.visibility == View.VISIBLE) {
             binding.staffBottomNavigationView.selectedItemId = R.id.staff_pending
-        } else {
-            binding.staffBottomNavigationView.visibility = View.GONE
-        }
     }
 }

@@ -7,6 +7,8 @@ import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import com.google.firebase.database.FirebaseDatabase
 import com.karumi.dexter.PermissionToken
 import com.rcappstudio.complaintbox.model.ComplaintId
@@ -24,7 +26,7 @@ class ViewFragmentViewModel(
 
 
     val statusChangeSuccessfulLiveData = MutableLiveData(false)
-
+    private lateinit var navController: NavController
 
     fun assignTaskToWorker(department: String,uid: String, token: String, notificationAPI: NotificationAPI,complaintId: String){
         database.getReference("Staff/$department/workers/$uid/assignments/$complaintId")
@@ -72,6 +74,26 @@ class ViewFragmentViewModel(
                 Log.e("TAGData", e.toString())
             }
         }
+
+    fun setNavController(navController: NavController) {
+        this.navController = navController
+    }
+
+    private fun isFragmentInBackStack(destinationId: Int) =
+        try {
+            navController.getBackStackEntry(destinationId)
+            true
+        } catch (e: Exception) {
+            false
+        }
+
+    fun switchToMediaFragment(actions: NavDirections, destinationId: Int) {
+        if (isFragmentInBackStack(destinationId)) {
+            navController.popBackStack(destinationId, false)
+        } else {
+            navController.navigate(actions)
+        }
+    }
 
 
 }

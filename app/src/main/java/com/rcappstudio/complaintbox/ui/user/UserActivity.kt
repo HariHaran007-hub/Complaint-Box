@@ -54,13 +54,8 @@ class UserActivity : AppCompatActivity() {
         return (supportFragmentManager.findFragmentById(R.id.userFragmentContainerView) as NavHostFragment).navController
     }
 
-
     override fun onBackPressed() {
         super.onBackPressed()
-        if (binding.userBottomNavigationView.visibility == View.VISIBLE) {
             binding.userBottomNavigationView.selectedItemId = R.id.user_all
-        } else {
-            binding.userBottomNavigationView.visibility = View.GONE
-        }
     }
 }

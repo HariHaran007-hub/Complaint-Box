@@ -85,10 +85,6 @@ class AdminActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        if (binding.adminBottomNavigationView.visibility == View.VISIBLE) {
             binding.adminBottomNavigationView.selectedItemId = R.id.staff_pending
-        } else {
-            binding.adminBottomNavigationView.visibility = View.GONE
-        }
     }
 }
