@@ -1,5 +1,6 @@
 package com.rcappstudio.complaintbox.ui.admin
 
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -21,6 +22,8 @@ import com.rcappstudio.complaintbox.ui.FirebaseData
 import com.rcappstudio.complaintbox.ui.FirebaseWorkersData
 import com.rcappstudio.complaintbox.ui.admin.viewmodel.AdminViewModel
 import com.rcappstudio.complaintbox.ui.admin.viewmodel.AdminViewModelFactory
+import com.rcappstudio.complaintbox.ui.login.LoginActivity
+import com.rcappstudio.complaintbox.utils.accountConfirmantionDialog
 import com.rcappstudio.complaintbox.utils.initLoadingDialog
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -97,9 +100,19 @@ class AdminActivity : AppCompatActivity() {
     }
 
     private fun toolBarClickListener(){
+        binding.toolBar.menu.getItem(0).isVisible = true
         binding.toolBar.setOnMenuItemClickListener {
-            if(it.itemId == R.id.addWorker){
-                openAddWorkerDialog()
+            when(it.itemId){
+                R.id.addWorker ->
+                    openAddWorkerDialog()
+                R.id.logout -> {
+                    accountConfirmantionDialog(this, "logout", sharedPreferences).show()
+                }
+                R.id.delete_acc -> {
+                    accountConfirmantionDialog(this, "delete", sharedPreferences).show()
+                }
+
+
             }
             true
         }

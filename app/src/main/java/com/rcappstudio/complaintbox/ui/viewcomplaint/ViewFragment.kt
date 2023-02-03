@@ -225,20 +225,6 @@ class ViewFragment : Fragment() {
             }
     }
 
-   /* private fun initBottomSheet() {
-        bottomSheetBehavior = BottomSheetBehavior.from(binding.assignBottomSheet.root)
-        bottomSheetBehavior.addBottomSheetCallback(object :
-            BottomSheetBehavior.BottomSheetCallback() {
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-
-            }
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {}
-        })
-        bottomSheetBehavior.isDraggable = true
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-        setBottomSheetRv()
-    }*/
-
     private fun setBottomSheetRv(){
         binding.workerRv.layoutManager = LinearLayoutManager(requireContext())
         FirebaseWorkersData.liveData.observe(viewLifecycleOwner){
@@ -266,7 +252,5 @@ class ViewFragment : Fragment() {
             .setNegativeButton("Cancel",null)
             .show()
     }
-
-
 
 }

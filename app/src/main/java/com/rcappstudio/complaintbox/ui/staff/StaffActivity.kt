@@ -1,5 +1,6 @@
 package com.rcappstudio.complaintbox.ui.staff
 
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,8 +14,10 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.rcappstudio.complaintbox.R
 import com.rcappstudio.complaintbox.databinding.ActivityStaffBinding
 import com.rcappstudio.complaintbox.ui.FirebaseData
+import com.rcappstudio.complaintbox.ui.login.LoginActivity
 import com.rcappstudio.complaintbox.ui.staff.viewmodel.StaffViewModel
 import com.rcappstudio.complaintbox.ui.staff.viewmodel.StaffViewModelFactory
+import com.rcappstudio.complaintbox.utils.accountConfirmantionDialog
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -43,6 +46,7 @@ class StaffActivity : AppCompatActivity() {
         viewModel.setNavController(getNavController())
         initBottomNavigation()
         setNotificationToken()
+        toolBarClickListener()
     }
 
     private fun setNotificationToken(){
@@ -79,6 +83,22 @@ class StaffActivity : AppCompatActivity() {
         }
     }
 
+    private fun toolBarClickListener(){
+        binding.toolBar.menu.getItem(0).isVisible = false
+        binding.toolBar.setOnMenuItemClickListener {
+            when(it.itemId){
+                R.id.logout -> {
+                    accountConfirmantionDialog(this, "logout", sharedPreferences).show()
+                }
+                R.id.delete_acc -> {
+                    accountConfirmantionDialog(this, "delete", sharedPreferences).show()
+                }
+
+
+            }
+            true
+        }
+    }
     private fun getNavController(): NavController {
         return (supportFragmentManager.findFragmentById(R.id.staffFragmentContainerView) as NavHostFragment).navController
     }

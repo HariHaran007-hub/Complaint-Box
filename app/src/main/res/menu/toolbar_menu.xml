@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/addWorker"
+        android:icon="@drawable/ic_baseline_add_24"
+        android:title="Add Worker"
+        android:visible="false" />
+
+    <item
+        android:id="@+id/logout"
+        android:title="Logout" />
+
+    <item
+        android:id="@+id/delete_acc"
+        android:title="Delete Account" />
+
+
+</menu>
