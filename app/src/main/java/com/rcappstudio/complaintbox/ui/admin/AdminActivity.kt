@@ -3,22 +3,25 @@ package com.rcappstudio.complaintbox.ui.admin
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import androidx.activity.OnBackPressedCallback
+import android.widget.EditText
+import android.widget.Toast
+
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.FirebaseApp
+import com.google.firebase.FirebaseOptions
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.messaging.FirebaseMessaging
 import com.rcappstudio.complaintbox.R
 import com.rcappstudio.complaintbox.databinding.ActivityAdminBinding
 import com.rcappstudio.complaintbox.ui.FirebaseData
 import com.rcappstudio.complaintbox.ui.FirebaseWorkersData
 import com.rcappstudio.complaintbox.ui.admin.viewmodel.AdminViewModel
 import com.rcappstudio.complaintbox.ui.admin.viewmodel.AdminViewModelFactory
-import com.rcappstudio.complaintbox.ui.user.viewmodel.UserViewModel
-import com.rcappstudio.complaintbox.ui.user.viewmodel.UserViewModelFactory
+import com.rcappstudio.complaintbox.utils.initLoadingDialog
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -48,6 +51,7 @@ class AdminActivity : AppCompatActivity() {
         supportActionBar!!.hide()
         setContentView(binding.root)
         init()
+        toolBarClickListener()
     }
 
     private fun init(){
@@ -56,6 +60,7 @@ class AdminActivity : AppCompatActivity() {
         initBottomNavigation()
         viewModel.switchToFragment(R.id.adminFragment1)
         viewModel.setNotificationToken(department!!)
+        initLoadingDialog(this)
 
     }
 
@@ -91,8 +96,82 @@ class AdminActivity : AppCompatActivity() {
         return (supportFragmentManager.findFragmentById(R.id.adminFragmentContainerView) as NavHostFragment).navController
     }
 
+    private fun toolBarClickListener(){
+        binding.toolBar.setOnMenuItemClickListener {
+            if(it.itemId == R.id.addWorker){
+                openAddWorkerDialog()
+            }
+            true
+        }
+    }
+
+    private fun openAddWorkerDialog(){
+        val layout = layoutInflater.inflate(R.layout.add_worker,null)
+        val name = layout.findViewById<EditText>(R.id.addWorkerName)
+        val email = layout.findViewById<EditText>(R.id.addWorkerEmail)
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Add workers")
+            .setView(layout)
+            .setCancelable(false)
+            .setPositiveButton("Add"){_,_->
+                if(name.text.toString() !="" && email.toString() != "")
+                    createTemporaryAuth(name.text.toString(), email.text.toString())
+                else
+                    Toast.makeText(this,"Field is empty", Toast.LENGTH_LONG).show()
+            }
+            .setNegativeButton("Cancel"){_,_->
+
+            }
+
+            .show()
+    }
+
+    private fun createTemporaryAuth(name: String,email: String){
+
+        val firebaseOptions = FirebaseOptions.Builder()
+            .setApiKey(getString(R.string.google_api_key))
+            .setApplicationId(getString(R.string.project_id)).build();
+
+        var mAuth2 = try {
+            val myApp =
+                FirebaseApp.initializeApp(this, firebaseOptions, "AnyAppName");
+            FirebaseAuth.getInstance(myApp);
+        } catch ( e: Exception) {
+            FirebaseAuth.getInstance(FirebaseApp.getInstance("AnyAppName"));
+        }
+        if(mAuth2 != null)
+            createWorker(email,mAuth2,name)
+    }
+
+    private fun createWorker(email: String, mAuth2 :FirebaseAuth, name: String){
+        com.rcappstudio.complaintbox.utils.showDialog()
+        mAuth2.createUserWithEmailAndPassword(email,"psnacet")
+            .addOnCompleteListener {
+                if(it.isSuccessful){
+                    Toast.makeText(this,"Worker added successfully", Toast.LENGTH_LONG)
+                        .show()
+                    viewModel.setStaffKeyData(mAuth2.uid.toString(),name)
+                    mAuth2!!.signOut()
+                    attachCompleteObserver()
+                }
+            }
+            .addOnFailureListener {
+                Log.d("TAGData", "createUser2: $it")
+                com.rcappstudio.complaintbox.utils.dismissDialog()
+                Toast.makeText(this,"Error occurd", Toast.LENGTH_LONG)
+                    .show()
+            }
+    }
+
+    private fun attachCompleteObserver(){
+        viewModel.addWorkerSuccessfulLiveData.observe(this){
+            if(it){
+                com.rcappstudio.complaintbox.utils.dismissDialog()
+            }
+        }
+    }
+
     override fun onBackPressed() {
         super.onBackPressed()
-
     }
 }

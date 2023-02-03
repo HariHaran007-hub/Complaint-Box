@@ -12,6 +12,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.rcappstudio.complaintbox.model.Complaint
+import com.rcappstudio.complaintbox.model.KeyData
+import com.rcappstudio.complaintbox.model.WorkerData
 import com.rcappstudio.complaintbox.ui.FirebaseData
 
 class AdminViewModel(
@@ -22,6 +24,7 @@ class AdminViewModel(
 
     private var compList: MutableLiveData<List<Complaint?>> = MutableLiveData()
 
+     var addWorkerSuccessfulLiveData = MutableLiveData(false)
     private var sharedPref: SharedPreferences = app.getSharedPreferences(
         "shared_pref",
         Context.MODE_PRIVATE
@@ -124,5 +127,26 @@ class AdminViewModel(
           database.getReference("Staff/$department/admin/${FirebaseAuth.getInstance().uid}/token")
                 .setValue(it)
         }
+    }
+
+    fun setStaffKeyData(uid: String, name: String){
+        database.getReference("StaffKey/$uid")
+            .setValue(KeyData(sharedPref.getString("department",""), uid))
+            .addOnCompleteListener {
+                if(it.isSuccessful){
+                    addToWorkerDatabase(uid,name)
+                }
+            }
+
+    }
+
+    private fun addToWorkerDatabase(uid: String, name: String){
+        database.getReference("Staff/${sharedPref.getString("department","")}/workers/$uid")
+            .setValue(WorkerData(name))
+            .addOnCompleteListener {
+                if(it.isSuccessful){
+                    addWorkerSuccessfulLiveData.postValue(true)
+                }
+            }
     }
 }

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/admin_bottom_nav"
+        app:menu="@menu/menu_add_worker"
         app:title="Admin" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
