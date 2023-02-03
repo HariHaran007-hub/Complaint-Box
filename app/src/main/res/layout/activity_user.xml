@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.user.UserActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/dark_turquoise"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Title"
+        app:title="Complaint Box" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/userBottomNavigationView"
         android:layout_width="match_parent"
@@ -20,9 +30,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/userBottomNavigationView"
-        android:layout_below="@id/userBottomNavigationView"
+        android:layout_below="@id/toolBar"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         app:defaultNavHost="true"
         app:navGraph="@navigation/user_nav_graph" />
 

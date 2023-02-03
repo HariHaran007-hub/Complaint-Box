@@ -12,8 +12,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/staff_bottom_nav"
-        app:title="Staff" />
+        app:titleTextColor="@color/dark_turquoise"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Title"
+        app:title="Worker" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/staffBottomNavigationView"
