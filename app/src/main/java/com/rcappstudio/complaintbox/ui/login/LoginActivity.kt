@@ -1,16 +1,20 @@
 package com.rcappstudio.complaintbox.ui.login
 
+import android.R.attr.left
+import android.R.attr.right
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.rcappstudio.complaintbox.R
 import com.rcappstudio.complaintbox.databinding.ActivityLoginBinding
 import com.rcappstudio.complaintbox.model.AdminKey
 import com.rcappstudio.complaintbox.model.KeyData
@@ -173,23 +177,17 @@ class LoginActivity : AppCompatActivity() {
 
     private fun showAlertDialog(){
         val edittext = EditText(this)
-        alert.setMessage("Enter Your Message")
-        alert.setTitle("Enter Your Title")
-
+        alert.setTitle("Reset Password")
+        alert.setMessage("Enter Your email")
         alert.setView(edittext)
-
-        alert.setPositiveButton("Yes Option") { dialog, whichButton ->
+        alert.setPositiveButton("Ok") { dialog, whichButton ->
             if(edittext.text.toString().isNotEmpty()){
                 resetPassword(edittext.text.toString())
             }
         }
-
-        alert.setNegativeButton("No Option") { dialog, whichButton ->
-
+        alert.setNegativeButton("Cancel") { dialog, whichButton ->
         }
-        
         alert.show()
-
     }
 
 

@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:text="Iam a staff"
+                android:text="I'm a staff"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_14ssp" />
 
