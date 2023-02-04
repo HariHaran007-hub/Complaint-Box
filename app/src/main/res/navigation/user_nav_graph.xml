@@ -49,11 +49,7 @@
         android:id="@+id/addComplaintFragment"
         android:name="com.rcappstudio.complaintbox.ui.user.fragments.AddComplaintFragment"
         android:label="fragment_add_complaint"
-        tools:layout="@layout/fragment_add_complaint" >
-        <action
-            android:id="@+id/action_addComplaintFragment_to_userFragment1"
-            app:destination="@id/userFragment1" />
-    </fragment>
+        tools:layout="@layout/fragment_add_complaint" />
     <fragment
         android:id="@+id/viewFragment"
         android:name="com.rcappstudio.complaintbox.ui.viewcomplaint.ViewFragment"

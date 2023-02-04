@@ -19,5 +19,8 @@
     <color name="tomato_cardBG">#4DBE4D25</color>
     <color name="yellow_200">#FFEB3B</color>
     <color name="yellow_500">#FFC107</color>
+    <color name="yellow_status">#1AFFC107</color>
+    <color name="green_status">#1A49BE25</color>
+    <color name="tomato_status">#1AF4612D</color>
 
 </resources>

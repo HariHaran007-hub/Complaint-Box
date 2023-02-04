@@ -4,8 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +20,8 @@ class CompRVAdapter(
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val titleView: TextView = itemView.findViewById(R.id.card_title)
         val timeView: TextView = itemView.findViewById(R.id.card_time)
-        val compStatus: TextView = itemView.findViewById(R.id.card_status)
+        val compStatus: TextView = itemView.findViewById(R.id.card_status_tv)
+        val statusCard: CardView = itemView.findViewById(R.id.status_card)
     }
 
     interface CardClickListener {
@@ -40,15 +39,19 @@ class CompRVAdapter(
         if (comp?.solved!! == 0) {
             holder.compStatus.text = "Pending"
             holder.compStatus.setTextColor(context.getColor(R.color.tomato_200))
+            holder.statusCard.setCardBackgroundColor(context.getColor(R.color.tomato_status))
         } else if (comp?.solved!! == 1){
             holder.compStatus.text = "Assigned"
             holder.compStatus.setTextColor(context.getColor(R.color.yellow_500))
+            holder.statusCard.setCardBackgroundColor(context.getColor(R.color.yellow_status))
         } else if (comp?.solved!! == 2){
             holder.compStatus.text = "Waiting for approval"
             holder.compStatus.setTextColor(context.getColor(R.color.yellow_500))
+            holder.statusCard.setCardBackgroundColor(context.getColor(R.color.yellow_status))
         } else {
             holder.compStatus.text = "Approved"
             holder.compStatus.setTextColor(context.getColor(R.color.lawn_green))
+            holder.statusCard.setCardBackgroundColor(context.getColor(R.color.green_status))
         }
         holder.itemView.setOnClickListener {
             clickListener.onCardClick(comp!!)
