@@ -86,9 +86,9 @@ class StaffViewModel(
                     if (cList.isNotEmpty()) {
                         compList.postValue(
                             cList.filter { comp ->
-                                comp.solved == 1
+                                comp.solved!! <= 1
                                         && comp.department?.trim()?.split(",")?.contains(dept)!!
-                                        && cIds.contains(comp.complaintId)
+//                                        && cIds.contains(comp.complaintId)
                             }
                         )
                     }
@@ -108,7 +108,7 @@ class StaffViewModel(
                             cList.filter { comp ->
                                 comp.solved!! >= 2
                                         && comp.department?.trim()?.split(",")?.contains(dept)!!
-                                        && cIds.contains(comp.complaintId)
+//                                        && cIds.contains(comp.complaintId)
                             }
                         )
                     }

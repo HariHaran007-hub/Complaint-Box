@@ -1,6 +1,5 @@
 package com.rcappstudio.complaintbox.ui.admin
 
-import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,14 +15,14 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.rcappstudio.complaintbox.R
 import com.rcappstudio.complaintbox.databinding.ActivityAdminBinding
 import com.rcappstudio.complaintbox.ui.FirebaseData
 import com.rcappstudio.complaintbox.ui.FirebaseWorkersData
 import com.rcappstudio.complaintbox.ui.admin.viewmodel.AdminViewModel
 import com.rcappstudio.complaintbox.ui.admin.viewmodel.AdminViewModelFactory
-import com.rcappstudio.complaintbox.ui.login.LoginActivity
-import com.rcappstudio.complaintbox.utils.accountConfirmantionDialog
+import com.rcappstudio.complaintbox.utils.AccountUtils
 import com.rcappstudio.complaintbox.utils.initLoadingDialog
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -40,7 +39,8 @@ class AdminActivity : AppCompatActivity() {
     lateinit var sharedPreferences: SharedPreferences
     @Inject
     lateinit var firebaseData: FirebaseData
-
+    @Inject
+    lateinit var database: FirebaseDatabase
     @Inject
     lateinit var firebaseWorkersData: FirebaseWorkersData
 
@@ -106,10 +106,10 @@ class AdminActivity : AppCompatActivity() {
                 R.id.addWorker ->
                     openAddWorkerDialog()
                 R.id.logout -> {
-                    accountConfirmantionDialog(this, "logout", sharedPreferences).show()
+                    AccountUtils.adminAccountConfirmationDialog(this, "logout", sharedPreferences, database).show()
                 }
                 R.id.delete_acc -> {
-                    accountConfirmantionDialog(this, "delete", sharedPreferences).show()
+                    AccountUtils.adminAccountConfirmationDialog(this, "delete", sharedPreferences, database).show()
                 }
 
 
