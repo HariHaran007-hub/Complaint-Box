@@ -50,17 +50,29 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/card_status"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/status_card"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_12ssp"
-            android:textStyle="bold"
-            android:text="Pending"
-            android:textColor="@color/tomato_200"
-            android:layout_centerVertical="true"
+            app:cardCornerRadius="@dimen/_12sdp"
+            app:cardElevation="0dp"
+            android:elevation="0dp"
+            android:background="@color/tomato_status"
             android:layout_alignParentEnd="true"
-            />
+            android:layout_centerVertical="true" >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/card_status_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="@dimen/_3sdp"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:text="Pending"
+                android:textColor="@color/tomato_200"
+                android:textSize="@dimen/_10ssp"
+                android:textStyle="bold" />
+
+        </androidx.cardview.widget.CardView>
 
     </RelativeLayout>
 
