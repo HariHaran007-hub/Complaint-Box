@@ -12,7 +12,7 @@ import com.rcappstudio.complaintbox.databinding.ActivityUserBinding
 import com.rcappstudio.complaintbox.ui.FirebaseData
 import com.rcappstudio.complaintbox.ui.user.viewmodel.UserViewModel
 import com.rcappstudio.complaintbox.ui.user.viewmodel.UserViewModelFactory
-import com.rcappstudio.complaintbox.utils.accountConfirmationDialog
+import com.rcappstudio.complaintbox.utils.AccountUtils
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -77,10 +77,10 @@ class UserActivity : AppCompatActivity() {
         binding.toolBar.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.logout -> {
-                    accountConfirmationDialog(this, "logout", sharedPreferences, null).show()
+                    AccountUtils.userAccountConfirmationDialog(this, "logout", sharedPreferences).show()
                 }
                 R.id.delete_acc -> {
-                    accountConfirmationDialog(this, "delete", sharedPreferences, null).show()
+                    AccountUtils.userAccountConfirmationDialog(this, "delete", sharedPreferences).show()
                 }
 
 

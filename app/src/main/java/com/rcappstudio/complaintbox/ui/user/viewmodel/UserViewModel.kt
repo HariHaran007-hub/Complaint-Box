@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -22,6 +23,7 @@ class UserViewModel(
 
     private lateinit var navController: NavController
     private var compList: MutableLiveData<List<Complaint?>> = MutableLiveData()
+    private var uid = FirebaseAuth.getInstance().currentUser?.uid
 
     fun setNavController(navController: NavController) {
         this.navController = navController
@@ -54,7 +56,11 @@ class UserViewModel(
     fun getAllData(): LiveData<List<Complaint?>> {
         compList.postValue(mutableListOf())
         FirebaseData.liveData.observeForever {
-            compList.postValue(it)
+            if (it.isNotEmpty()) {
+                compList.postValue(it?.filter {comp ->
+                    comp.userId == uid
+                })
+            }
         }
 
         /*database.getReference("Complaints")
@@ -80,6 +86,7 @@ class UserViewModel(
         compList.postValue(mutableListOf())
         FirebaseData.liveData.observeForever {
             compList.postValue(it.filter {
+                it.userId == uid &&
                 it.solved == 1 || it.solved==2
             })
         }
@@ -90,6 +97,7 @@ class UserViewModel(
         compList.postValue(mutableListOf())
         FirebaseData.liveData.observeForever {
             compList.postValue(it.filter {
+                it.userId == uid &&
                 it.solved == 3
             })
         }

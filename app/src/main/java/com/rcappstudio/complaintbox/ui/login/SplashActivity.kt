@@ -43,7 +43,7 @@ class SplashActivity : AppCompatActivity() {
                     startActivity(Intent(this , AdminActivity::class.java))
                     finish()
                 } else {
-                    startActivity(Intent(this , UserActivity::class.java))
+                    startActivity(Intent( this , UserActivity::class.java))
                     finish()
                 }
             } else {
